@@ -1,0 +1,22 @@
+<div class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <img class="btn-close" src="../../../assets/icon/icon-close.svg" (click)="close(false)"/>
+      <h1>Clone Form</h1>
+      <p>Which form would you like to clone?</p>
+    </div>
+    <div class="modal-body">
+      <div class="radio-group" *ngFor="let asmt of assessments$|async ">
+        <div class="radio-input">
+          <input [id]="asmt._id" type="radio" [value]="asmt._id" [formControl]="copyFromControl">
+        </div>
+        <div class="radio-label">
+          <label [for]="asmt._id">{{ asmt?.title || 'Untitled Assessment' }}</label>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="close(true)">
+        Continue
+      </button>
+    </div>
+  </div>
+</div>

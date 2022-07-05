@@ -1,0 +1,72 @@
+<app-breadcrumb [routerLink]="['../']" [linkText]="'Back to Risk Form Overview'"></app-breadcrumb>
+
+<app-unified-filter-menu
+  [proxy]="filterMenuProxy">
+</app-unified-filter-menu>
+
+<!--User List-->
+<div class="content-wrap filters">
+  <div class="header-title">
+    <div>
+      <h2>Pilot Access</h2>
+
+      <app-preferences-card-subtitle></app-preferences-card-subtitle>
+
+
+    </div>
+    <!-- TODO: make checkbox reflect current state of selection list -->
+    <app-checkbox label="Select All"
+                  [checked]="selectAll"
+                  (checkedChanged)="toggleSelectAll($event)"
+                  class="selectall"
+                  >
+    </app-checkbox>
+  </div>
+  <!--Filter Button-->
+  <div class="filter-btn actions only-mobile">
+    <!-- <div class="active-filter" *ngIf="filterMenuProxy.didFiltersChangeFromDefaults$|async"></div> -->
+    <a class="menu-svg" (click)="filterMenuProxy.toggleFilterMenu(); $event.stopPropagation()">
+      <span>Filter</span>
+      <img width="24" height="24" src="../assets/icon/icon-filter.svg" alt="Filter">
+    </a>
+  </div>
+  <app-filter-bar
+    [filterDisplayName]="filterMenuProxy.filterBarOutput$|async"
+    (onFilterMenuToggle)="toggleFilterMenu()"
+  >
+  </app-filter-bar>
+
+  <ul class="grid-equalHeight form-access">
+    <li class="col-6_md-12" *ngFor="let user of (userStates$|async); trackBy trackUser">
+      <div class="wrapper"
+>
+
+        <app-checkbox class="checkbox"
+                      *ngIf="!isAo(user); else aoCheckbox"
+                      [checked]="user.isEnabled()"
+                      (checkedChanged)="user.changeAccess($event)"
+        ></app-checkbox>
+
+        <ng-template #aoCheckbox>
+          <app-checkbox class="checkbox"
+                        [checked]="user.isEnabled()"
+                        (checkedChanged)="user.changeAccess($event)"
+                        [disabled]="true"
+
+                        [attr.aria-label]="'Account Owner always has access to this assessment'"
+                        [attr.data-balloon-pos]="'up-left'"
+          ></app-checkbox>
+        </ng-template>
+        <div class="user-details">
+          <label id="name">{{ user.name }}</label>
+          <label id="email">{{ user.email }}</label>
+          <label id="role">{{ user.role | role }}</label>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
+

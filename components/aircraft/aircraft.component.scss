@@ -1,0 +1,114 @@
+@import "../../../assets/css/partials/variables";
+@import "../../../assets/css/partials/mixins";
+
+.aircraft-form {
+  @include flex();
+  flex-direction: column;
+  @include bp(browser) {
+    flex-direction: row;
+    justify-content: space-between;
+    > div {
+      width: 50%;
+      + div {
+        margin-left: 20px;
+        @include bp(tablet) {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+}
+.filter-btn {
+  position: fixed;
+  z-index: 31;
+  @include bp(belowtablet) {
+    right: .75rem;
+  }
+  right: 1rem;
+  top: 12px;
+  // @include flex();
+  // align-items: center;
+  @include bp(tablet) {
+    span {
+      display: block;
+      padding-right: 5px;
+    }
+  }
+}
+.aircraft-identifier {
+  text-transform: uppercase;
+  &::placeholder {text-transform: capitalize;}
+}
+
+.asset-list.aircrafts {
+  margin-bottom: 0;
+  li {
+    align-items: center;
+    border-top: 1px solid $blue-shade-2;
+    &:nth-child(1) {
+      border-top: none;
+    }
+    &:last-child {
+      padding-bottom: 0;
+    }
+    .identifier {
+      flex-grow: 2;
+      @include flex();
+      flex-direction: column;
+      @include bp(browser) {
+        flex-direction: row;
+        > div {
+          width: 50%;
+        }
+      }
+    }
+    .tailnumber {
+      color: $blue-shade-7;
+      font-size: 16px;
+      line-height: 18px;
+			display: block;
+			@include ff($family, $medium);
+			text-transform: uppercase;
+		}
+		.craft-type {
+			display: block;
+			font-size: 12px;
+      @include bp(browser) {
+        font-weight: $reg;
+        font-size: 14px;
+        line-height: 18px;
+        text-transform: none;
+      }
+		}
+  }
+  .empty-state {
+    box-shadow: none;
+    text-align: center;
+    text-transform: none;
+    font-size: 14px;
+    cursor: default;
+    margin-top: 20px;
+    border-top: 1px solid $blue-shade-2;
+    p {
+      background: $blue-shade-1;
+      flex-grow: 1;
+      margin: 0;
+      padding: 20px 0;
+      @include radius (4px);
+      @include bp(belowtablet) {
+        padding: 20px 10px;
+      }
+    }
+  }
+}
+
+.radio-label {
+  margin: 0;
+}
+
+p {
+  text-align: left;
+  span {
+    font-weight: $bold;
+  }
+}

@@ -1,0 +1,47 @@
+<div class="header-title center">
+  <div>
+    <h2>Create a New Risk Form</h2>
+    <!-- <p>How would you like to get started?</p> -->
+  </div>
+</div>
+<div class="grid-3_lg-1-equalHeight create-form">
+  <div class="col">
+    <div class="content-wrap">
+      <!--Clone Existing-->
+      <div class="content">
+        <img src="/assets/img/illustration_clone-form.svg" alt="Clone Existing Form">
+        <h5>Clone an Existing Risk Form</h5>
+        <p>Start your new risk form from a clone of one of your existing risk assessments.</p>
+        <button class="btn btn-primary" (click)="create(creationModes.Copy)">
+          Clone Existing Form
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="content-wrap">
+      <!--Customize Default-->
+      <div class="content">
+        <img src="/assets/img/illustration_customize-form.svg" alt="Clone Existing Form">
+        <h5>Customize the IS-BAO Form</h5>
+        <p>Start with the FAA approved IS-BAO risk form and customize it for your operations.</p>
+        <button class="btn btn-primary" (click)="create(creationModes.Default)">
+          Customize IS-BAO Form
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="content-wrap">
+      <!--Create Scratch-->
+      <div class="content">
+        <img src="/assets/img/illustration_create-scratch.svg" alt="Clone Existing Form">
+        <h5>Create a Risk Form from Scratch</h5>
+        <p>Create your own risk form using our form builder and setup custom risk factors and weighted values.</p>
+        <button class="btn btn-primary" (click)="create(creationModes.Blank)">
+          Create New Form
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

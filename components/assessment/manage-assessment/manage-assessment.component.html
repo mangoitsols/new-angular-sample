@@ -1,0 +1,139 @@
+<div class="header-title risk-form-header">
+  <div class="form-name-wrapper">
+
+    <div class="edit-form-name" *ngIf="editTitle; else titleDisplayOnly">
+      <input autofocus id="title" type="text" placeholder="Risk form unique name/identifier"
+             [formControl]="titleFormControl" (keyup.enter)="toggleEditTitle()"/>
+      <button class="btn-secondary-sm"
+              (click)="toggleEditTitle()"
+              [disabled]="titleFormInvalid">Save</button>
+    </div>
+
+    <ng-template #titleDisplayOnly>
+      <div class="form-name">
+        <h2>{{ titleFormControl.value }}</h2>
+        <svg (click)="toggleEditTitle()"
+             width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.2978 7.07312C17.8271 6.60171 17.2002 6.34277 16.5343 6.34277C15.869 6.34277 15.2421 6.60171 14.7713 7.07312L7.70387 14.1399C7.70387 14.1399 7.70325 14.1418 7.70201 14.1424C7.65183 14.1932 7.56635 14.327 7.54033 14.4279L6.6576 17.9613C6.60433 18.172 6.6669 18.3962 6.82052 18.5492L6.82114 18.5498L6.82176 18.5504C6.97539 18.7041 7.19839 18.7666 7.40963 18.714L10.943 17.83C11.044 17.804 11.1784 17.7185 11.2286 17.6683C11.2292 17.6677 11.2311 17.6665 11.2311 17.6665L18.2985 10.6003C18.7693 10.1289 19.0288 9.50325 19.0282 8.83671C19.0282 8.1708 18.7693 7.54452 18.2985 7.07312H18.2978ZM16.536 11.0562L10.8996 16.6927L8.67535 14.4768L14.271 8.88118L16.536 11.0562ZM7.70962 17.6618L8.27893 15.3903L9.98206 17.0944L7.70962 17.6618ZM17.6545 7.7184C18.2452 8.30981 18.2452 9.34109 17.6545 9.9325L17.0987 10.4891L14.883 8.27425L15.4404 7.7184C16.0318 7.12777 17.0631 7.127 17.6545 7.7184Z"/>
+        </svg>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!-- Risk Form -->
+<div class="grid main-form">
+  <div class="col">
+    <div class="content-wrap">
+      <div class="content">
+        <img src="/assets/img/illustration_risk-from.svg" routerLink="./edit">
+        <div class="description">
+          <div class="text">
+            <h3>Risk Form</h3>
+            <p>Customize the risk form's sections, questions, and weighted values of each risk option. Enforce safety policies and procedures by adding reminders or warnings to specific risk factors.</p>
+          </div>
+          <a routerLink="./edit">
+            <span>Customize Risk Form</span>
+          </a>
+        </div>
+      </div>
+      <!-- only visibile if multiple risk form feature enabled-->
+      <div class="default-check"  *requireAddon="addonFeature">
+        <app-checkbox label="Set this form as the account default"
+                      [attr.aria-label]="'Preselects the form when setting up a new assessment.'"
+                      [attr.data-balloon-pos]="'up-left'"
+                      [formControl]="defaultAssessmentFormControl"
+                      [disabled]="disableDefaultSelectionControl"
+        ></app-checkbox>
+
+        <div class="delete-form" (click)="deleteAssessment()" *ngIf="canDelete; else deleteDisabled">
+          <a class="link delete">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                <g>
+                  <rect x="0" y="0" width="24" height="24" fill="transparent"></rect>
+                  <path d="M9.26337581,8.10881905 L9.26337581,7.3817729 C9.26337581,6.5080212 9.97169152,5.7997055 10.8454432,5.7997055 L13.1545567,5.7997055 C14.0283084,5.7997055 14.7366242,6.5080212 14.7366242,7.3817729 L14.7366242,8.10881905 L17.1955055,8.10881905 C17.431613,8.10881905 17.6230161,8.30022207 17.6230161,8.53632968 C17.6230161,8.77243727 17.431613,8.9638403 17.1955055,8.9638403 L16.4684593,8.9638403 L16.4684593,16.618227 C16.4684593,17.4919787 15.7601436,18.2002945 14.8863919,18.2002945 L9.11360806,18.2002945 C8.23985636,18.2002945 7.53154066,17.4919787 7.53154066,16.618227 L7.53154066,8.9638403 L6.80449451,8.9638403 C6.56838691,8.9638403 6.37698388,8.77243727 6.37698388,8.53632968 C6.37698388,8.30022207 6.56838691,8.10881905 6.80449451,8.10881905 L9.26337581,8.10881905 Z M10.1183971,8.10881905 L13.8816029,8.10881905 L13.8816029,7.3817729 C13.8816029,6.9802364 13.5560933,6.65472675 13.1545567,6.65472675 L10.8454432,6.65472675 C10.4439067,6.65472675 10.1183971,6.9802364 10.1183971,7.3817729 L10.1183971,8.10881905 Z M15.613438,8.9638403 L8.38656191,8.9638403 L8.38656191,16.618227 C8.38656191,17.0197636 8.71207155,17.3452732 9.11360806,17.3452732 L14.8863919,17.3452732 C15.2879285,17.3452732 15.613438,17.0197636 15.613438,16.618227 L15.613438,8.9638403 Z M10.4179326,11.4227216 C10.4179326,11.186614 10.6093356,10.995211 10.8454432,10.995211 C11.0815508,10.995211 11.2729539,11.186614 11.2729539,11.4227216 L11.2729539,14.8863919 C11.2729539,15.1224996 11.0815508,15.3139026 10.8454432,15.3139026 C10.6093356,15.3139026 10.4179326,15.1224996 10.4179326,14.8863919 L10.4179326,11.4227216 Z M12.7270461,11.4227216 C12.7270461,11.186614 12.9184492,10.995211 13.1545567,10.995211 C13.3906643,10.995211 13.5820674,11.186614 13.5820674,11.4227216 L13.5820674,14.8863919 C13.5820674,15.1224996 13.3906643,15.3139026 13.1545567,15.3139026 C12.9184492,15.3139026 12.7270461,15.1224996 12.7270461,14.8863919 L12.7270461,11.4227216 Z" id="trash" fill-rule="nonzero"></path>
+                </g>
+              </g>
+            </svg>
+            <span>
+              Delete Form
+            </span>
+          </a>
+        </div>
+
+        <ng-template #deleteDisabled>
+          <div class="delete-form" (click)="showDeleteWarning()">
+            <a class="link delete">
+              <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                  <g>
+                    <rect x="0" y="0" width="24" height="24" fill="transparent"></rect>
+                    <path d="M9.26337581,8.10881905 L9.26337581,7.3817729 C9.26337581,6.5080212 9.97169152,5.7997055 10.8454432,5.7997055 L13.1545567,5.7997055 C14.0283084,5.7997055 14.7366242,6.5080212 14.7366242,7.3817729 L14.7366242,8.10881905 L17.1955055,8.10881905 C17.431613,8.10881905 17.6230161,8.30022207 17.6230161,8.53632968 C17.6230161,8.77243727 17.431613,8.9638403 17.1955055,8.9638403 L16.4684593,8.9638403 L16.4684593,16.618227 C16.4684593,17.4919787 15.7601436,18.2002945 14.8863919,18.2002945 L9.11360806,18.2002945 C8.23985636,18.2002945 7.53154066,17.4919787 7.53154066,16.618227 L7.53154066,8.9638403 L6.80449451,8.9638403 C6.56838691,8.9638403 6.37698388,8.77243727 6.37698388,8.53632968 C6.37698388,8.30022207 6.56838691,8.10881905 6.80449451,8.10881905 L9.26337581,8.10881905 Z M10.1183971,8.10881905 L13.8816029,8.10881905 L13.8816029,7.3817729 C13.8816029,6.9802364 13.5560933,6.65472675 13.1545567,6.65472675 L10.8454432,6.65472675 C10.4439067,6.65472675 10.1183971,6.9802364 10.1183971,7.3817729 L10.1183971,8.10881905 Z M15.613438,8.9638403 L8.38656191,8.9638403 L8.38656191,16.618227 C8.38656191,17.0197636 8.71207155,17.3452732 9.11360806,17.3452732 L14.8863919,17.3452732 C15.2879285,17.3452732 15.613438,17.0197636 15.613438,16.618227 L15.613438,8.9638403 Z M10.4179326,11.4227216 C10.4179326,11.186614 10.6093356,10.995211 10.8454432,10.995211 C11.0815508,10.995211 11.2729539,11.186614 11.2729539,11.4227216 L11.2729539,14.8863919 C11.2729539,15.1224996 11.0815508,15.3139026 10.8454432,15.3139026 C10.6093356,15.3139026 10.4179326,15.1224996 10.4179326,14.8863919 L10.4179326,11.4227216 Z M12.7270461,11.4227216 C12.7270461,11.186614 12.9184492,10.995211 13.1545567,10.995211 C13.3906643,10.995211 13.5820674,11.186614 13.5820674,11.4227216 L13.5820674,14.8863919 C13.5820674,15.1224996 13.3906643,15.3139026 13.1545567,15.3139026 C12.9184492,15.3139026 12.7270461,15.1224996 12.7270461,14.8863919 L12.7270461,11.4227216 Z" id="trash" fill-rule="nonzero"></path>
+                  </g>
+                </g>
+              </svg>
+              <span>
+              Delete Form
+            </span>
+            </a>
+          </div>
+
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Risk Form Specific Settings -->
+<div class="grid-equalHeight form-settings">
+  <div class="col-4_lg-6_md-12_sm-12_xs-12" *ngFor="let item of menuItems$|async; trackBy: trackItem">
+    <div class="equal-heights-wrapper">
+      <div class="content-wrap">
+        <div class="enabled card" [ngClass]="{enabled: item.alwaysClickable || item.isClickable}">
+            <div class="content">
+              <img *ngIf="item.isClickable || item.alwaysClickable; else plainImg"
+                   [src]="item.icon"
+                   [alt]="item.title"
+                   [routerLink]="item.link.routerLink">
+              <ng-template #plainImg>
+                <img [src]="item.icon" [alt]="item.title">
+              </ng-template>
+
+              <div class="descriptor">
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.subtitle }}</p>
+                <a class="textlink" [routerLink]="item.link.routerLink" *ngIf="item.isClickable || item.alwaysClickable; else voidLink">
+                  <span>{{ item.link.text }}</span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.94846 8.49177C10.2291 8.18716 10.7036 8.16777 11.0082 8.44846L13.8723 11.0876C14.0139 11.2185 14.1075 11.3763 14.165 11.5283C14.2231 11.6818 14.25 11.8433 14.25 12C14.25 12.1567 14.2231 12.3182 14.165 12.4717C14.1075 12.6237 14.0139 12.7815 13.8723 12.9124L11.0082 15.5515C10.7036 15.8322 10.2291 15.8128 9.94846 15.5082C9.66777 15.2036 9.68716 14.7291 9.99177 14.4485L12.6489 12L9.99177 9.55155C9.68716 9.27086 9.66777 8.79638 9.94846 8.49177Z"/>
+                  </svg>
+                </a>
+                <ng-template #voidLink>
+                  <a class="textlink">
+                    <span>{{ item.link.text }}</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.94846 8.49177C10.2291 8.18716 10.7036 8.16777 11.0082 8.44846L13.8723 11.0876C14.0139 11.2185 14.1075 11.3763 14.165 11.5283C14.2231 11.6818 14.25 11.8433 14.25 12C14.25 12.1567 14.2231 12.3182 14.165 12.4717C14.1075 12.6237 14.0139 12.7815 13.8723 12.9124L11.0082 15.5515C10.7036 15.8322 10.2291 15.8128 9.94846 15.5082C9.66777 15.2036 9.68716 14.7291 9.99177 14.4485L12.6489 12L9.99177 9.55155C9.68716 9.27086 9.66777 8.79638 9.94846 8.49177Z"/>
+                    </svg>
+                  </a>
+                </ng-template>
+              </div>
+            </div>
+            <ng-container *requireAddon="addonFeature">
+              <div class="enabler" *ngIf="!item.alwaysClickable">
+                <app-checkbox [label]="item.checkboxText || 'Override Global Settings'"
+                              [checked]="item.isClickable"
+                              (checkedChanged)="overrideGlobalSettingsChanged($event, item)"
+                              attr.aria-label="Manage {{ item.title }} separately from global settings."
+                              [attr.data-balloon-pos]="'up-left'"
+                ></app-checkbox>
+              </div>
+
+              <div class="enabler" *ngIf="item.infoLabel">
+                <h6>{{ item.infoLabel }}</h6>
+              </div>
+            </ng-container>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

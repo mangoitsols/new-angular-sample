@@ -1,0 +1,23 @@
+<div class="input-group">
+  <div class="label-container">
+
+    <label [for]="field.fieldName" class="step-label">{{ field.label }}</label>
+    <label><a (click)="addPilot()" class="link" *ngIf="canAddPilot$|async">Add new user</a></label>
+  </div>
+
+  <input [id]="field.fieldName"
+         type="text"
+         class="form-control step-details step-details-vertical"
+         [ngbTypeahead]="adapter.bindSearch(instance)"
+         [inputFormatter]="adapter.inputFormatter"
+         [resultFormatter]="adapter.resultFormatter"
+         [formControl]="formControl"
+         (focus)="adapter.focus$.next($any($event).target.value)"
+         (click)="adapter.click$.next($any($event).target.value)"
+         placeholder="Select a user"
+         #instance="ngbTypeahead"
+  >
+
+  <div *ngIf="hasErrors()" class="issue-notice">Selecting a PIC is required.</div>
+
+</div>

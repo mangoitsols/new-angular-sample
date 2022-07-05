@@ -1,0 +1,974 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.assessment {
+  position: relative;
+  @include flex();
+  box-sizing: border-box;
+  //overflow-x: hidden;
+  min-height: 1px;
+  padding: 0;
+  background: white;
+  // @include radii(4px,4px,0,0);
+  @include radius(4px);
+  @include box-shadow(0, 5px, 20px, 0, $blue-shade-2);
+  .factor-details {
+    visibility: hidden;
+    transform: translateY(100%);
+    @include bp(med-browser) {
+      transform: translateX(10%);
+    }
+    top: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    left: 0;
+    position: absolute;
+    transition: .2s ease-in;
+    z-index: 30;
+    transition: .5s cubic-bezier(0.23, 1, 0.32, 1);
+    height: calc(100vh - 96px);
+    background-color: white;
+    // @include box-shadow(0, 5px, 20px, 0, $blue-shade-2);
+    @include box-shadow(-1px, 0px, 10px, 0, $blue-shade-2);
+    @include scrollbars(0,white,white);
+    @include radii(4px, 4px, 0, 0);
+    @include bp(med-browser) {
+      overflow: hidden;
+      // top: -60px;
+      top: 0;
+      left: 100%;
+      width: 55%;
+      @include flex();
+      max-width: 550px;
+      @include radii(0, 4px, 0, 0);
+      height: calc(100vh - 118px);
+    }
+    .content-wrap {
+      // min-height: calc(100vh - 100px);
+      // @include flex();
+      // flex-direction: column;
+      // justify-content: space-between;
+      // box-shadow: none;
+      margin-bottom: 0;
+      padding: 0 1.5rem;
+      .newoption a {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .policy-section {
+        margin-bottom: 30px;
+      }
+      .card-controls {
+        margin-bottom: 40px;
+        .row {
+          justify-content: flex-start;
+        }
+      }
+    }
+    .header {
+      @include flex();
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid $blue-shade-2;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      background: white;
+      + .row {
+        flex: 1;
+        overflow: hidden;
+        //overflow-y: auto;
+        @include scrollbars(0,white,white);
+      }
+      img.close-factor {
+        transform: rotate(90deg);
+        @include bp(med-browser) {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+  .edit-assessment {
+    width: 100%;
+    max-width: 1800px;
+    background: $white;
+    //@include radius(4px);
+    position: relative;
+    @include radii(4px, 4px, 0, 0);
+    overflow: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 100px);
+    @include scrollbars(0,white,white);
+    @include bp(med-browser) {
+      transition:max-width 0.3s ease-out;
+      height: calc(100vh - 118px);
+    }
+  }
+  &.factor-shown {
+    // @include bp(med-browser) {
+    //   margin-right: -1.5rem;
+    // }
+    // overflow: hidden;
+    // height: calc(100vh - 180px);
+    .factor-details {
+      visibility: visible;
+      transform: translateY(0%);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      @include bp(med-browser) {
+        //@include box-shadow(10px, 5px, 20px, 50px, $blue-shade-2);
+        border-left: 1px solid $blue-shade-2;
+        @include radii(0, 4px, 0, 0);
+        transform: translateX(-100%);
+      }
+    }
+    .edit-assessment {
+      @include radii(4px, 4px, 0, 0);
+      height: calc(100vh - 100px);
+      @include scrollbars(0,white,white);
+      @include bp(med-browser) {
+        @include radii(4px, 0, 0, 0);
+        transition:max-width 0.3s ease-out;
+        width: 45%;
+        max-width: 1800px;
+        min-width: calc(100% - 550px);
+        height: calc(100vh - 118px);
+      }
+    }
+  }
+
+
+///////////////////
+//header styles
+///////////////////
+.section + .section {
+  border-top: 5px solid $blue-shade-1;
+}
+.section .header {
+  @include flex();
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $blue-shade-2;
+  padding: 0 1.5rem;
+  height: 60px;
+  .actions {
+    margin: 0!important;
+    a {
+      margin-left: 16px;
+      padding: 2px;
+      &:hover {
+        @include radius(4px);
+        background-color: $blue-shade-0;
+      }
+    }
+    img {
+      margin: 0;
+    }
+  }
+}
+.section .title {
+  @include flex();
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 1.5rem;
+  background: $gray-shade-1;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  border-top: 1px solid white;
+  margin-bottom: 0;
+  // @include bp(browser) {
+  //   padding: 15px ​15px 0 15p;
+  // }
+  h2 {
+    font-size: 20px;
+    font-weight: $medium;
+    color: $dark-blue-secondary;
+    margin: 0 0 10px;
+  }
+  .title-input {
+    @include flex();
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    label {
+      margin-top: 0;
+    }
+    .input-wrapper {
+      flex: 1;
+    }
+  }
+}
+.header-title {
+  // margin-bottom: 20px;
+  // padding-bottom: 20px;
+  border-bottom: 1px solid $blue-shade-2;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    margin: 0;
+    text-align: left;
+    color: $dark-blue-secondary;
+  }
+  p {
+    @include ff($family, $reg);
+    text-align: left;
+    margin: 0;
+    line-height: 18px;
+    font-size: 14px;
+    color: $blue-shade-6;
+  }
+}
+// .actions.right a img {
+//   margin: 0;
+// }
+a.reorder-btn {
+  @include flex();
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  //z-index: 11;
+  //margin-top: 3px;
+  .label {
+    @include ff($family,$bold);
+    font-size: 12px;
+    text-transform: uppercase;
+    color: $blue-shade-5;
+    margin-right: 5px;
+  }
+}
+}
+.edit-assessment .section {
+  padding: 0;
+}
+
+h1 {
+  @include ff($family, $reg);
+  font-size: 22px;
+  margin: 0;
+  color: $dark-blue-primary;
+}
+//section styles
+// .edit-question .section {
+//   padding: 20px;
+//   @include bp(tablet) {
+//     padding: 30px;
+//   }
+// }
+.section {
+  box-shadow: none;
+  background-color: transparent;
+  border-radius: 0;
+  overflow: auto;
+  padding: 20px;
+  margin: 0;
+  @include bp(browser) {
+    //margin: 0 0 30px;
+    padding: 30px;
+  }
+  //max-width: 480px;
+  // TODO: Tablet BP messes with Drag-and-drop. Is this necessary? Why do we need more padding for tablet than desktop?
+  // @include bp(tablet) {
+  //   max-width: 480px;
+  //   padding: 30px;
+  // }
+  .title,
+  .question {
+    @include flex();
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    h2 {
+      @include ff($family, $medium);
+      font-size: 16px;
+      line-height: normal;
+      color: $blue-shade-6;
+      //text-transform: uppercase;
+      margin: 0 0 0 15px;
+    }
+    &.edit-title {
+      justify-content: flex-start;
+      margin-bottom: 0;
+    }
+  }
+  .title-wrapper {
+    flex-grow: 2;
+    margin-right: 15px;
+    @include bp(browser) {
+      margin-right: 30px;
+    }
+    label {
+      margin-top: 0;
+    }
+  }
+  .actions {
+    margin-top: 17px;
+    span {padding-right: 5px;}
+    a + a {
+      margin-left: 1rem;
+    }
+  }
+  ul.question-list {
+    border-top: 1px solid white;
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    // li:last-child {
+    //   margin-bottom: 10px;
+    // }
+    li.empty {
+      border: 1px dashed $blue-shade-3;
+      @include flex();
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      //background: $blue-shade-0;
+      @include radius(4px);
+      padding: 15px 10px;
+      margin: 1rem 1.5rem 0;
+      svg {
+        #drag {
+          fill: $blue-shade-5;
+        }
+      }
+      p {
+        @include ff($family, $reg);
+        font-size: 14px;
+        line-height: normal;
+        color: $blue-shade-5;
+        margin: 0 15px;
+        text-align: left;
+      }
+    }
+  }
+}
+//assessment card footer controls
+// .content-wrap .card-controls.assessment-editor {
+//   margin: 15px 20px;
+//   .row {
+//     justify-content: flex-start;
+//     // order: 1;
+//     // + .row {
+//     //   justify-content: flex-start;
+//     //   order: 2;
+//     // }
+//     // @include bp(browser) {
+//     //   width: 33%;
+//     //   + .row {
+//     //     justify-content: flex-end;
+//     //     width: 66%;
+//     //   }
+//     // }
+//     a {
+//       margin: 10px 0 10px 10px;
+//     }
+//   }
+// }
+.add-section {
+  border-top: 5px solid $blue-shade-1;
+  border-bottom: 5px solid $blue-shade-1;
+  @include box-shadow(0, 0, 0, 0, transparent);
+  @include radius(0px);
+  padding: 0;
+  margin: 0;
+  h4 {
+    margin: 0;
+    color: $dark-blue-secondary;
+  }
+  .addsection {
+    max-width:200px;
+  }
+  .card-controls {
+    margin-top: 0;
+    a {
+      @include flex();
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width:100%;
+      margin: 0;
+      padding: 20px;
+      @include bp(browser) {
+        padding: 30px;
+      }
+      margin-top: 0;
+      &:hover {
+        background-color: #f8fbff;
+      }
+    }
+  }
+}
+.cdk-drag-preview,
+.cdk-drag-dragging {
+  list-style-type: none !important;
+}
+li.question-item {
+  border-top: 1px solid $blue-shade-2;
+  &:nth-last-child(2) {
+    border-bottom: 1px solid $blue-shade-2;
+  }
+  &:last-child {
+    border: none;
+  }
+  &:hover {
+    background-color: $blue-shade-0;
+  }
+  background: white;
+  @include flex();
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  // margin: 0 -20px;
+  // @include bp(browser){
+  //   margin: 0 -30px;
+  // }
+  //padding: 15px 10px;
+  // &:last-child {
+  //   border-bottom: 1px solid $blue-shade-2;
+  // }
+  &.cdk-drag-preview {
+    @include box-shadow(0, 0, 4px, 0, $gray-shade-5);
+    @include radius(4px);
+    border-top: none;
+    border-bottom: none;
+    padding: 15px;
+    margin: 10px -15px;
+    background-color: $blue-shade-0;
+  }
+  .question-text {
+    @include flex();
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem 1rem 0;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    .icon {
+      margin: 0 0 0 1rem;
+      img {
+        opacity: .3;
+      }
+    }
+    &:hover {
+      .icon img {
+        opacity: 1;
+      }
+    }
+    &.active {
+      background-color: $blue-shade-0;
+      margin-left: -27px;
+      padding-left: 27px;
+    }
+  }
+  p {
+    @include ff($family, $reg);
+    font-size: 14px;
+    line-height: normal;
+    color: $dark-blue-secondary;
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+	  text-overflow: ellipsis;
+	  overflow: hidden;
+	  white-space: nowrap;
+  }
+  &.newquestion,
+  &.newoption {
+    // border-bottom: none;
+    // padding: 15px 0;
+    //margin: 0 0 10px;
+    &:hover {
+      background-color: transparent;
+    }
+    a {
+      width: 100%;
+      @include flex();
+      justify-content: flex-start;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      //background-color:rgba(243, 247, 250, 0.7);
+      background-color: $blue-shade-0;
+      @include radius(4px);
+      padding: 1rem 15px;
+      margin: 1.5rem;
+      p {
+        @include ff($family, $reg);
+        font-size: 14px;
+        line-height: normal;
+        color: $light-blue-primary;
+        margin: 0;
+      }
+      &:hover {
+        //background-color:rgba(243, 247, 250, 1);
+        background-color: $blue-shade-1;
+      }
+    }
+  }
+  // &.newquestion {
+  //   background: $gray-shade-1;
+  //   a {
+  //     background-color: white;
+  //   }
+  // }
+  &:hover .icon.grabber img {
+    opacity: .5;
+  }
+}
+
+.icon {
+  @include flex();
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  // padding: 1rem 0;
+  &.grabber {
+    cursor: ns-resize;
+    margin: 0 3px 0 0;
+    position: relative;
+    z-index: 10;
+    img {
+      opacity: .5;
+      @include bp(browser) {
+        opacity: 0;
+      }
+    }
+  }
+  &:hover img {
+    opacity: 1!important;
+  }
+  &.add-question {
+    margin-right: 10px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.add-new {
+  color: $light-blue-primary;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+}
+
+.remove-section {
+  border-top: 1px solid $blue-shade-2;
+  color: $dark-blue-secondary;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 30px 0 0;
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  padding: 20px 0 0;
+}
+
+//////////////////////////
+//Reorder Sections Styles
+//////////////////////////
+.edit-assessment-sections {
+  width: 100%;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+ul.reorder {
+  :first-child {
+    margin-top: 0;
+  }
+  img {
+    margin: 0;
+  }
+  li.reorder-item {
+    border-bottom: 1px solid $blue-shade-1;
+    &:first-child {
+      @include radii(4px, 4px, 0, 0);
+    }
+    &:last-child {
+      @include radii(0, 0, 4px, 4px);
+    }
+  }
+  .header {
+    border-bottom: none;
+  }
+}
+li.reorder-item {
+  background: white;
+  @include flex();
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  &:first-child {
+    border-top: none;
+  }
+  .actions {
+    margin: 0;
+    a {
+      margin-left: 16px;
+      padding: 2px;
+      &:hover {
+        @include radius(4px);
+        background-color: $blue-shade-0;
+      }
+    }
+    img {
+      margin: 0;
+    }
+  }
+  .header {
+    @include flex();
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    //border-bottom: 1px solid $blue-shade-2;
+    padding: 0 1.5rem;
+    height: 60px;
+    width: 100%;
+    .section-title {
+      @include flex();
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      // h2 {
+      //   font-size: 18px;
+      //   line-height: 24px;
+      //   font-weight: $medium;
+      // }
+      .icon {
+        margin-left: -.5rem;
+        margin-right: 1rem;
+        img {
+          opacity: 1;
+        }
+      }
+      span {
+        color: $blue-shade-5;
+      }
+    }
+  }
+}
+
+//edit/add Question section styles
+.edit-question {
+  .header {
+    .actions {
+      a {
+        margin-left: 16px;
+        padding: 2px;
+        &:hover {
+          @include radius(4px);
+          background-color: $blue-shade-0;
+        }
+      }
+      img {
+        margin: 0;
+      }
+    }
+  }
+  h4 {
+    border-top: 1px solid $blue-shade-2;
+    padding-top: 30px;
+    margin-top: 30px;
+    color: $blue-shade-7;
+    font-weight: $medium;
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .card-controls {
+    margin-bottom: 40px;
+    .row {
+      justify-content: flex-start;
+    }
+    a.link.delete {
+      @include flex();
+      justify-content: flex-start;
+      align-items: center;
+      margin: 40px 0 0;
+      @include bp(browser) {
+        margin: 0;
+      }
+    }
+  }
+}
+.policy-section {
+  border-top: 1px solid #DFE7F2;
+  padding-top: 30px;
+  margin-top: 30px;
+  .wrap {
+    padding: 20px;
+    background-color: $blue-shade-0;
+  }
+  h4 {
+    margin-bottom: 10px;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  label {
+    margin-top: 15px;
+  }
+}
+.question-editor textarea,
+.policy-section textarea {
+  margin: 0 0 15px;
+  @include ff($family, $reg);
+}
+.secondary-options {
+  @include flex();
+  flex-direction: row;
+  justify-content: space-between;
+  a {
+    @include flex();
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    color: $light-blue-primary;
+    cursor: pointer;
+  }
+  > div {
+    @include flex();
+    justify-content: flex-start;
+  }
+  > div + div {
+    justify-content: flex-end;
+    a {
+      color: $blue-shade-5;
+      img {margin-left: 5px;}
+    }
+  }
+}
+ul.options-list,
+ul.score {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.options-list {
+  > li:last-child {
+    margin-top: 30px;
+  }
+  li.option {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid $blue-shade-2;
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    @include flex();
+    flex-direction: row;
+    justify-content: space-between;
+    .row {
+      &.option-details {
+        // flex: 0 2 auto;
+        width: 100%;
+        @include flex();
+        flex-direction: column;
+      }
+      label {
+        margin-top: 0;
+      }
+      // @include bp(med-browser) {
+      //   .input {
+      //     width: 50%;
+      //   }
+      // }
+      .score {
+        flex-basis: auto;
+        flex: 1;
+        margin: 10px 0 0;
+        // @include bp(med-browser) {
+        //   margin: 0 0 0 20px;
+        // }
+        li {
+          height: 50px;
+          margin: 0 5px;
+          &:first-child {
+            margin-left: 0;
+          }
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+    .row.delete-option {
+      cursor: pointer;
+      @include flex();
+      justify-content: center;
+      align-items: flex-start;
+      margin: 30px 15px 0;
+      @include bp(tablet) {
+        margin: 32px 10px 0 20px;
+      }
+    }
+  }
+  .newoption {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid $blue-shade-2;
+    a {
+      margin: 0;
+    }
+  }
+}
+.tip {
+  @include flex();
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  &.editingquestion {
+    border-bottom: 1px solid $blue-shade-2;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    @include bp(tablet) {
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+    }
+  }
+  > div {
+    flex-grow: 2;
+    label {margin-top: 0;}
+  }
+  img {
+    cursor: pointer;
+    margin: 0 15px 15px;
+    @include bp(tablet) {
+      margin: 0 10px 13px 20px;
+    }
+  }
+}
+ul.score {
+  @include flex();
+  flex-direction: row;
+  justify-content: space-between;
+  @include ff($family, $medium);
+  font-size: 16px;
+  margin-top: 10px;
+  li {
+    cursor: pointer;
+    @include flex();
+    justify-content: center;
+    align-items: center;
+    @include radius(2px);
+    width: 100%;
+    background: $blue-shade-1;
+    color: $light-blue-primary;
+    height: 35px;
+    margin: 0 5px;
+    @include bp(tablet) {
+      height: 45px;
+      margin: 0 10px;
+    }
+    &.selected {
+      color: white;
+      background: $light-blue-primary;
+      &:hover {
+        background: $light-blue-secondary;
+      }
+    }
+    &:hover {
+      background: $blue-shade-2;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.scoreValue {
+      input[type=radio]{
+        display: none;
+      }
+      &.amber {
+        background-color: $moderate-light;
+        color: $gray-shade-6;
+      }
+      &.red {
+        background-color: $severe-light;
+        color: $gray-shade-1;
+      }
+      &.selected {
+        &.amber {
+          background-color: $moderate;
+          color: $gray-shade-1;
+        }
+        &.red {
+          background-color: $severe;
+        }
+      }
+    }
+  }
+}
+//footer styles
+.assessment-footer {
+  background: white;
+  padding: 20px 30px;
+  a {
+    @include flex();
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    @include ff($family, $reg);
+    font-size: 14px;
+    color: $dark-blue-primary;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 20px auto;
+    text-align: left;
+  }
+  svg {
+    margin-right: 10px;
+    #restore,
+    #trash {
+      fill: $dark-blue-primary;;
+    }
+  }
+}
+
+
+
+.policy-section {
+  .head {
+    @include flex();
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 10px;
+    img {
+      margin: 0 10px 0 0;
+      width: 24px;
+      height: 24px;
+    }
+    h4 {
+      margin: 0;
+    }
+  }
+  p {
+    text-align: left;
+  }
+  textarea {
+    margin-bottom: 0;
+  }
+}
+

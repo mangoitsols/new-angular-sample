@@ -1,0 +1,125 @@
+<div class="app-container flights">
+  <div class="app-topbar">
+    <!--Mobile Header-->
+    <div class="main-header mobile">
+      <div class="left">
+        <!--if pilot - go to profile-->
+        <img *ngIf="!(isAtLeastAdmin$|async)" class="account-menu" src="../assets/icon/icon-account-white.svg"
+             alt="menu" [routerLink]=" ['/settings/profile'] ">
+        <!-- if admin/ao - show flyout menu-->
+        <!-- <img *ngIf="(isAtLeastAdmin$|async)" class="account-menu" src="../assets/icon/icon-account-white.svg" alt="menu" (click)="toggleSettingsMenu(); $event.stopPropagation();"> -->
+        <svg *ngIf="(isAtLeastAdmin$|async)" (click)="toggleSettingsMenu(); $event.stopPropagation();"
+             class="account-menu" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M21.2608 8.41892L22.2138 12.5958L20.0616 13.9439L19.8321 14.9486L21.1874 17.0962L18.5147 20.4462L16.1195 19.604L15.1905 20.0513L14.3562 22.4491H10.0711L9.23684 20.0513L8.3079 19.604L5.91267 20.4462L3.23993 17.0962L4.59523 14.9486L4.36555 13.9439L2.21381 12.5958L3.16678 8.41918L5.69194 8.1386L6.33417 7.33294L6.0449 4.80983L9.90541 2.95145L11.6983 4.74896H12.7293L14.5217 2.95145L18.3827 4.80957L18.0934 7.33269L18.7357 8.13835L21.2608 8.41892ZM17.9952 18.6367L19.3073 16.9921L18.1942 15.2281L18.7073 12.9812L20.4746 11.874L20.0068 9.82358L17.9328 9.59313L16.4962 7.79102L16.7341 5.71907L14.8386 4.80702L13.3662 6.28354H11.0612L9.58851 4.80702L7.6933 5.71933L7.93116 7.79127L6.49453 9.59339L4.42054 9.82383L3.95275 11.8743L5.71957 12.9815L6.23365 15.2281L5.12031 16.9921L6.43238 18.6367L8.39998 17.9449L10.4768 18.9452L11.1622 20.9143H13.2654L13.9508 18.9452L16.0276 17.9449L17.9952 18.6367ZM14.6405 12.8155C14.6405 14.1498 13.5588 15.2314 12.2245 15.2314C10.8903 15.2314 9.80861 14.1498 9.80861 12.8155C9.80861 11.4812 10.8903 10.3995 12.2245 10.3995C13.5588 10.3995 14.6405 11.4812 14.6405 12.8155ZM16.1405 12.8155C16.1405 14.9782 14.3873 16.7314 12.2245 16.7314C10.0618 16.7314 8.30861 14.9782 8.30861 12.8155C8.30861 10.6528 10.0618 8.89954 12.2245 8.89954C14.3873 8.89954 16.1405 10.6528 16.1405 12.8155Z"/>
+        </svg>
+        <!--Trial Badge-->
+        <app-trial-badge></app-trial-badge>
+      </div>
+      <div class="middle">
+        <a id="logo" class="app-logo" [routerLink]=" ['/'] ">
+          <img alt="Preflight-Mitigator" src="../../../assets/img/brand/pfm-icon-white.svg"/>
+        </a>
+      </div>
+      <div class="right">
+        <!--Filter Button-->
+        <div class="active-filter" *ngIf="filterMenuProxy.didFiltersChangeFromDefaults$|async"></div>
+        <div id="filter">
+          <span class="menu-svg" (click)="filterMenuProxy.toggleFilterMenu(); $event.stopPropagation()">
+            <img width="24" height="24" src="../assets/icon/icon-filter-white.svg" alt="Filter">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-toggle-nav">
+      <ul>
+        <li class="active" [routerLink]=" ['/'] ">Assessments</li>
+        <li [routerLink]=" ['/statistics'] ">Statistics</li>
+      </ul>
+    </div>
+    <!--Desktop Header-->
+    <div class="main-header desktop">
+      <div class="left">
+        <div id="main-nav">
+          <ul>
+            <li class="active" [routerLink]=" ['/'] ">Assessments</li>
+            <li [routerLink]=" ['/statistics'] ">Statistics</li>
+          </ul>
+        </div>
+        <!--Trial Badge-->
+        <app-trial-badge></app-trial-badge>
+      </div>
+      <div class="middle">
+        <a id="logo" class="app-logo" [routerLink]=" ['/'] ">
+          <img alt="Preflight-Mitigator" src="../../../assets/img/brand/logo-white-long.svg"/>
+        </a>
+      </div>
+      <div class="right">
+        <!--New Frat Button-->
+        <div class="new-frat-btn" (click)="createFlight()">
+          <img src="../assets/icon/icon-new-frat-plus.svg"/>
+          <span>New Assessment</span>
+        </div>
+        <!--If pilot - go to profile-->
+        <img *ngIf="!(isAtLeastAdmin$|async)" class="account-menu" src="../assets/icon/icon-account-white.svg"
+             alt="menu" [routerLink]=" ['/settings/profile'] ">
+        <!--If admin/ao - go to settings-->
+        <!-- <img *ngIf="(isAtLeastAdmin$|async)" class="account-menu" src="../assets/icon/icon-account-white.svg" alt="menu" [routerLink]=" ['/settings'] "> -->
+        <svg *ngIf="(isAtLeastAdmin$|async)" [routerLink]=" ['/settings'] " class="account-menu" width="24" height="24"
+             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M21.2608 8.41892L22.2138 12.5958L20.0616 13.9439L19.8321 14.9486L21.1874 17.0962L18.5147 20.4462L16.1195 19.604L15.1905 20.0513L14.3562 22.4491H10.0711L9.23684 20.0513L8.3079 19.604L5.91267 20.4462L3.23993 17.0962L4.59523 14.9486L4.36555 13.9439L2.21381 12.5958L3.16678 8.41918L5.69194 8.1386L6.33417 7.33294L6.0449 4.80983L9.90541 2.95145L11.6983 4.74896H12.7293L14.5217 2.95145L18.3827 4.80957L18.0934 7.33269L18.7357 8.13835L21.2608 8.41892ZM17.9952 18.6367L19.3073 16.9921L18.1942 15.2281L18.7073 12.9812L20.4746 11.874L20.0068 9.82358L17.9328 9.59313L16.4962 7.79102L16.7341 5.71907L14.8386 4.80702L13.3662 6.28354H11.0612L9.58851 4.80702L7.6933 5.71933L7.93116 7.79127L6.49453 9.59339L4.42054 9.82383L3.95275 11.8743L5.71957 12.9815L6.23365 15.2281L5.12031 16.9921L6.43238 18.6367L8.39998 17.9449L10.4768 18.9452L11.1622 20.9143H13.2654L13.9508 18.9452L16.0276 17.9449L17.9952 18.6367ZM14.6405 12.8155C14.6405 14.1498 13.5588 15.2314 12.2245 15.2314C10.8903 15.2314 9.80861 14.1498 9.80861 12.8155C9.80861 11.4812 10.8903 10.3995 12.2245 10.3995C13.5588 10.3995 14.6405 11.4812 14.6405 12.8155ZM16.1405 12.8155C16.1405 14.9782 14.3873 16.7314 12.2245 16.7314C10.0618 16.7314 8.30861 14.9782 8.30861 12.8155C8.30861 10.6528 10.0618 8.89954 12.2245 8.89954C14.3873 8.89954 16.1405 10.6528 16.1405 12.8155Z"/>
+        </svg>
+      </div>
+    </div>
+    <app-filter-bar class="flight-list-filter"
+                    (onFilterMenuToggle)="filterMenuProxy.toggleFilterMenu()"
+                    [filterDisplayName]="filterMenuProxy.filterBarOutput$|async">
+    </app-filter-bar>
+  </div>
+  <div class="app-main"
+       infinite-scroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollUpDistance]="2"
+       [infiniteScrollThrottle]="500"
+       [scrollWindow]="true"
+       (scrolled)="onScrollDown()"
+       appScrollState
+       (scrollDirectionChange)="scrollDirectionChange($event)">
+    <div class="app-content">
+
+
+      <!--  settings menu here -->
+      <app-settings-menu-popout [(isOpen)]="showSettingsMenu"></app-settings-menu-popout>
+
+      <!--filter menu-->
+      <app-unified-filter-menu [proxy]="filterMenuProxy">
+      </app-unified-filter-menu>
+
+      <div class="flights-list-wrapper">
+
+        <!--      Filter With No Results-->
+        <flight-list-first-run *ngIf="(displayedFlights$ | async)?.length === 0">
+        </flight-list-first-run>
+        <!--      Filter With Results-->
+        <div *ngFor="let flight of displayedFlights$|async; trackBy: trackFlightId">
+          <flight-card class="flights-wrapper finish-mitigation"
+                       [flight]="flight"
+                       [showEdit]="true"
+                       [ngClass]="getFlightClass(flight)">
+          </flight-card>
+        </div>
+      </div>
+
+      <div class="right-corner-control mobile green">
+        <a (click)="createFlight()" [@expandableFab]="lastScrollDirection === 2 ? 'collapsed' : 'expanded'">
+          <img src="../assets/icon/icon-new-frat-plus-mobile.svg"/>
+          <span [ngClass]="{'collapsed': lastScrollDirection === 2}">NEW ASSESSMENT</span>
+        </a>
+      </div>
+
+
+    </div>
+  </div>
+</div>

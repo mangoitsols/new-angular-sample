@@ -1,0 +1,159 @@
+<app-breadcrumb [routerLink]="['../']" [linkText]="'Back to Risk Form Overview'"></app-breadcrumb>
+<div class="assessment" [ngClass]="{'factor-shown': editingQuestion}">
+<!-- <div class="assessment">  -->
+  <!--Main View - Customize Frat-->
+  <div class="edit-assessment" *ngIf="!reorderingSections" [formGroup]="assessmentForm" cdkDropListGroup>
+    <!--Repeats for every section of assessment-->
+    <div class="section" *ngFor="let section of assessmentForm.controls; let i = index" [formGroupName]="i">
+      <div class="header">
+        <h2 title>Form Section</h2>
+        <div class="actions right">
+          <a class="delete" (click)="deleteSection(i)" aria-label="Delete Section" data-balloon-pos="down-right">
+            <img src="../../assets/icon/icon-trash.svg" alt="Delete Section" >
+            <!-- <span>Delete</span> -->
+            <!-- <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.48913 6.37159C9.48913 5.33794 10.3271 4.5 11.3607 4.5H13.9249C14.9586 4.5 15.7965 5.33794 15.7965 6.37159V7.0642H18.4123C18.7378 7.0642 19.0018 7.32813 19.0018 7.65369C19.0018 7.97926 18.7378 8.24319 18.4123 8.24319H17.7197V16.6284C17.7197 17.6621 16.8817 18.5 15.8481 18.5H9.43757C8.40392 18.5 7.56598 17.6621 7.56598 16.6284V8.24319H6.87337C6.5478 8.24319 6.28387 7.97926 6.28387 7.65369C6.28387 7.32813 6.5478 7.0642 6.87337 7.0642H9.48913V6.37159ZM8.74496 16.6284V8.24319H16.5407V16.6284C16.5407 17.0109 16.2306 17.321 15.8481 17.321H9.43757C9.05505 17.321 8.74496 17.0109 8.74496 16.6284ZM10.7712 10.8589C10.7712 10.5334 11.0352 10.2695 11.3607 10.2695C11.6863 10.2695 11.9502 10.5334 11.9502 10.8589V14.7053C11.9502 15.0308 11.6863 15.2947 11.3607 15.2947C11.0352 15.2947 10.7712 15.0308 10.7712 14.7053V10.8589ZM13.3354 10.8589C13.3354 10.5334 13.5994 10.2695 13.9249 10.2695C14.2505 10.2695 14.5144 10.5334 14.5144 10.8589V14.7053C14.5144 15.0308 14.2505 15.2947 13.9249 15.2947C13.5994 15.2947 13.3354 15.0308 13.3354 14.7053V10.8589ZM11.3607 5.67898C10.9782 5.67898 10.6681 5.98908 10.6681 6.37159V7.0642H14.6175V6.37159C14.6175 5.98908 14.3074 5.67898 13.9249 5.67898H11.3607Z" fill="#2A3F4C"/>
+            </svg> -->
+          </a>
+          <a *ngIf="!reorderingSections" class="reorder-btn" (click)="reorderSections()" aria-label="Collapse Sections" data-balloon-pos="down-right">
+            <!-- <span>Reorder</span> -->
+            <img src="../../assets/icon/icon-collapse-sections.svg" alt="reorder sections">
+          </a>
+        </div>
+      </div>
+      <div class="title">
+        <div class="title-input">
+          <div class="input-wrapper">
+            <label for="section">Section Title</label>
+            <input id="section" type="text" placeholder="Enter Section Title" formControlName="sectionHeading">
+          </div>
+        </div>
+      </div>
+      <ul class="question-list" cdkDropList [id]="i" (cdkDropListDropped)="dropQuestion(i, $event)">
+        <!--Repeats for every question in the section-->
+        <li class="question-item" *ngFor="let question of section.get('questions').value" cdkDrag>
+          <div class="icon grabber" cdkDragHandle>
+            <img src="../../../assets/icon/icon-reorder.svg" alt="move position">
+          </div>
+          <a class="question-text" [routerLinkActive]="'active'" [routerLink]="['section', section.value._id, 'question', question._id]">
+            <p>{{question.question}}</p>
+            <div class="icon">
+              <img src="../../../assets/icon/icon-edit-pencil.svg" alt="edit title">
+            </div>
+          </a>
+        </li>
+        <li class="empty" *ngIf="!section.get('questions')?.value?.length">
+          <div class="icon grabber">
+            <svg class="drag" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-406.000000, -452.000000)">
+                  <g transform="translate(406.000000, 452.000000)">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                    <path d="M12.3642913,4.81173569 L12.4335392,4.86959114 L14.7735676,7.20961946 C14.9688297,7.40488161 14.9688297,7.7214641 14.7735676,7.91672624 C14.6000012,8.09029259 14.3305768,8.10957774 14.1357087,7.97458169 L14.0664608,7.91672624 L12.5789858,6.42914453 L12.5789858,17.5701445 L14.0664608,16.0832738 L14.1357087,16.0254183 C14.3305768,15.8904223 14.6000012,15.9097074 14.7735676,16.0832738 C14.9688297,16.2785359 14.9688297,16.5951184 14.7735676,16.7903805 L14.7735676,16.7903805 L12.4335392,19.1304089 L12.3642913,19.1882643 C12.1694232,19.3232604 11.8999988,19.3039752 11.7264324,19.1304089 L11.7264324,19.1304089 L9.22643245,16.6304089 L9.168577,16.561161 C9.03358095,16.3662928 9.0528661,16.0968684 9.22643245,15.9233021 L9.22643245,15.9233021 L9.29568034,15.8654466 C9.49054848,15.7304506 9.75997288,15.7497357 9.93353923,15.9233021 L9.93353923,15.9233021 L11.5789858,17.5681445 L11.5789858,6.43114453 L9.93353923,8.07669792 C9.75997288,8.25026427 9.49054848,8.26954942 9.29568034,8.13455337 L9.22643245,8.07669792 C9.0528661,7.90313157 9.03358095,7.63370717 9.168577,7.43883903 L9.22643245,7.36959114 L11.7264324,4.86959114 C11.8999988,4.69602479 12.1694232,4.67673964 12.3642913,4.81173569 Z" id="drag" fill="#1987CB" fill-rule="nonzero"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <p>Drag a question here or add a new one below.</p>
+        </li>
+        <li class="question-item newquestion">
+          <a [routerLink]="['section', section.value._id, 'question', 'new']">
+            <div class="icon add-question">
+              <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-338.000000, -751.000000)">
+                    <g transform="translate(338.000000, 724.981689)"></g>
+                    <g transform="translate(338.000000, 751.000000)">
+                      <rect  x="0" y="0" width="24" height="24"></rect>
+                      <path d="M12,4.69329184 C16.0353835,4.69329184 19.3067082,7.9646165 19.3067082,12 C19.3067082,16.0353835 16.0353835,19.3067082 12,19.3067082 C7.9646165,19.3067082 4.69329184,16.0353835 4.69329184,12 C4.69329184,7.9646165 7.9646165,4.69329184 12,4.69329184 Z M12,5.60142299 C8.46616349,5.60142299 5.60142299,8.46616349 5.60142299,12 C5.60142299,15.5338365 8.46616349,18.398577 12,18.398577 C15.5338365,18.398577 18.398577,15.5338365 18.398577,12 C18.398577,8.46616349 15.5338365,5.60142299 12,5.60142299 Z M12.0243314,8.10814204 C12.2803562,8.10814204 12.4879053,8.31569118 12.4879053,8.57171602 L12.4879053,8.57171602 L12.4879053,11.536426 L15.428284,11.536426 C15.6843088,11.536426 15.891858,11.7439752 15.891858,12 C15.891858,12.2560248 15.6843088,12.463574 15.428284,12.463574 L15.428284,12.463574 L12.4879053,12.463574 L12.4879053,15.428284 C12.4879053,15.6843088 12.2803562,15.891858 12.0243314,15.891858 C11.7683065,15.891858 11.5607574,15.6843088 11.5607574,15.428284 L11.5607574,15.428284 L11.5607574,12.463574 L8.57171602,12.463574 C8.31569118,12.463574 8.10814204,12.2560248 8.10814204,12 C8.10814204,11.7439752 8.31569118,11.536426 8.57171602,11.536426 L8.57171602,11.536426 L11.5607574,11.536426 L11.5607574,8.57171602 C11.5607574,8.31569118 11.7683065,8.10814204 12.0243314,8.10814204 Z" id="icon-add" fill="#1987CB" fill-rule="nonzero"></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <p>Add Risk Factor</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--add section-->
+    <div class="add-section">
+      <div class="card-controls">
+          <a class="link" (click)="addSection()">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-338.000000, -751.000000)">
+                  <g transform="translate(338.000000, 724.981689)"></g>
+                  <g transform="translate(338.000000, 751.000000)">
+                    <rect  x="0" y="0" width="24" height="24"></rect>
+                    <path d="M12,4.69329184 C16.0353835,4.69329184 19.3067082,7.9646165 19.3067082,12 C19.3067082,16.0353835 16.0353835,19.3067082 12,19.3067082 C7.9646165,19.3067082 4.69329184,16.0353835 4.69329184,12 C4.69329184,7.9646165 7.9646165,4.69329184 12,4.69329184 Z M12,5.60142299 C8.46616349,5.60142299 5.60142299,8.46616349 5.60142299,12 C5.60142299,15.5338365 8.46616349,18.398577 12,18.398577 C15.5338365,18.398577 18.398577,15.5338365 18.398577,12 C18.398577,8.46616349 15.5338365,5.60142299 12,5.60142299 Z M12.0243314,8.10814204 C12.2803562,8.10814204 12.4879053,8.31569118 12.4879053,8.57171602 L12.4879053,8.57171602 L12.4879053,11.536426 L15.428284,11.536426 C15.6843088,11.536426 15.891858,11.7439752 15.891858,12 C15.891858,12.2560248 15.6843088,12.463574 15.428284,12.463574 L15.428284,12.463574 L12.4879053,12.463574 L12.4879053,15.428284 C12.4879053,15.6843088 12.2803562,15.891858 12.0243314,15.891858 C11.7683065,15.891858 11.5607574,15.6843088 11.5607574,15.428284 L11.5607574,15.428284 L11.5607574,12.463574 L8.57171602,12.463574 C8.31569118,12.463574 8.10814204,12.2560248 8.10814204,12 C8.10814204,11.7439752 8.31569118,11.536426 8.57171602,11.536426 L8.57171602,11.536426 L11.5607574,11.536426 L11.5607574,8.57171602 C11.5607574,8.31569118 11.7683065,8.10814204 12.0243314,8.10814204 Z" id="icon-add" fill="#1987CB" fill-rule="nonzero"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>
+              Add New Section
+            </span>
+          </a>
+      </div>
+    </div>
+    <!--assessment footer-->
+    <div class="assessment-footer">
+      <!-- <button class="btn-primary" (click)="saveAndClose()">Save All Changes</button> -->
+      <a (click)="restoreDefault()">
+        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-338.000000, -980.000000)">
+              <g transform="translate(338.000000, 979.981689)">
+                <rect x="0" y="0.0183105469" width="24" height="24"></rect>
+                <path d="M16.9095943,13.0523902 C17.1727728,13.1360063 17.318337,13.4171389 17.2347209,13.6803175 C16.5151778,15.9450528 14.4052994,17.5132867 11.9920327,17.5132867 C10.0602534,17.5132867 8.3104405,16.5080872 7.32135545,14.9193357 L7.03060344,16.1768441 C6.96848492,16.445909 6.70000774,16.6136722 6.43094288,16.5515536 C6.16187802,16.4894351 5.99411486,16.2209579 6.05623338,15.9518931 L6.61861101,13.5159679 C6.68072953,13.2469031 6.94920671,13.0791399 7.21827157,13.1412584 L9.65419673,13.7036361 C9.9232616,13.7657546 10.0910248,14.0342317 10.0289062,14.3032966 C9.96678772,14.5723615 9.69831054,14.7401246 9.42924568,14.6780061 L8.16812582,14.3873448 C8.97716297,15.6894992 10.4098749,16.5132867 11.9920327,16.5132867 C13.9665567,16.5132867 15.6931128,15.2299692 16.281667,13.3775168 C16.3652831,13.1143382 16.6464157,12.9687741 16.9095943,13.0523902 Z M12.0079673,6.52333437 C13.9401484,6.52333437 15.6902874,7.52895206 16.6792616,9.11827681 L16.9693966,7.85977696 C17.0315151,7.59071209 17.2999923,7.42294893 17.5690571,7.48506745 C17.838122,7.54718597 18.0058851,7.81566315 17.9437666,8.08472801 L17.381389,10.5206532 C17.3192705,10.789718 17.0507933,10.9574812 16.7817284,10.8953627 L14.3458033,10.332985 C14.0767384,10.2708665 13.9089752,10.0023893 13.9710938,9.73332448 C14.0332123,9.46425962 14.3016895,9.29649646 14.5707543,9.35861498 L15.8318742,9.64927632 C15.022837,8.34712189 13.5901251,7.52333437 12.0079673,7.52333437 C10.0334433,7.52333437 8.30688716,8.8066519 7.71833302,10.6591043 C7.63471692,10.9222829 7.3535843,11.067847 7.09040573,10.9842309 C6.82722716,10.9006148 6.68166301,10.6194822 6.76527911,10.3563036 C7.48482223,8.09156826 9.59470061,6.52333437 12.0079673,6.52333437 Z" id="restore" fill="#122B3B" fill-rule="nonzero"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <span>
+          Restore Form to the IS-BAO FAA Default
+        </span>
+      </a>
+      <a (click)="deleteAssessment()">
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.48913 6.37159C9.48913 5.33794 10.3271 4.5 11.3607 4.5H13.9249C14.9586 4.5 15.7965 5.33794 15.7965 6.37159V7.0642H18.4123C18.7378 7.0642 19.0018 7.32813 19.0018 7.65369C19.0018 7.97926 18.7378 8.24319 18.4123 8.24319H17.7197V16.6284C17.7197 17.6621 16.8817 18.5 15.8481 18.5H9.43757C8.40392 18.5 7.56598 17.6621 7.56598 16.6284V8.24319H6.87337C6.5478 8.24319 6.28387 7.97926 6.28387 7.65369C6.28387 7.32813 6.5478 7.0642 6.87337 7.0642H9.48913V6.37159ZM8.74496 16.6284V8.24319H16.5407V16.6284C16.5407 17.0109 16.2306 17.321 15.8481 17.321H9.43757C9.05505 17.321 8.74496 17.0109 8.74496 16.6284ZM10.7712 10.8589C10.7712 10.5334 11.0352 10.2695 11.3607 10.2695C11.6863 10.2695 11.9502 10.5334 11.9502 10.8589V14.7053C11.9502 15.0308 11.6863 15.2947 11.3607 15.2947C11.0352 15.2947 10.7712 15.0308 10.7712 14.7053V10.8589ZM13.3354 10.8589C13.3354 10.5334 13.5994 10.2695 13.9249 10.2695C14.2505 10.2695 14.5144 10.5334 14.5144 10.8589V14.7053C14.5144 15.0308 14.2505 15.2947 13.9249 15.2947C13.5994 15.2947 13.3354 15.0308 13.3354 14.7053V10.8589ZM11.3607 5.67898C10.9782 5.67898 10.6681 5.98908 10.6681 6.37159V7.0642H14.6175V6.37159C14.6175 5.98908 14.3074 5.67898 13.9249 5.67898H11.3607Z" fill="#2A3F4C"/>
+        </svg>
+        <span>
+          Clear Form & Start from Scratch
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!--Reorder Sections-->
+  <div *ngIf="reorderingSections" class="edit-assessment-sections">
+    <ul class="reorder" cdkDropList (cdkDropListDropped)="dropSection($event)">
+      <!--Repeats for every section in the assessment-->
+      <li class="reorder-item" *ngFor="let section of assessmentForm.controls; index as i" cdkDrag>
+        <div class="header">
+          <div class="section-title">
+            <div class="icon grabber" cdkDragHandle>
+              <img src="../../../assets/icon/icon-reorder.svg" alt="move position">
+            </div>
+            <h2><span>Section:</span> {{section.value.sectionHeading}}</h2>
+          </div>
+          <div class="actions right">
+            <a class="delete" (click)="deleteSection(i)" aria-label="Delete Section" data-balloon-pos="down-right">
+              <img src="../../assets/icon/icon-trash.svg" alt="Delete Section" >
+            </a>
+            <a *ngIf="reorderingSections" class="reorder-btn" (click)="closeReorder()" aria-label="Expand Sections" data-balloon-pos="down-right">
+              <img src="../../assets/icon/icon-expand-sections.svg" alt="reorder sections">
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+   <router-outlet>
+
+   </router-outlet>
+</div>
+  <modal [message]=sectionWarningMessage *ngIf="showConfirmSectionDelete" (close)="confirmDeleteSection($event)"></modal>
+  <modal [message]="deleteFratWarning" *ngIf="pendingAction" (close)="confirmDeleteFrat($event)"></modal>

@@ -1,0 +1,45 @@
+<!--Filter Button-->
+<div class="filter-btn actions only-mobile">
+  <!-- <div class="active-filter" *ngIf="filterMenuProxy.didFiltersChangeFromDefaults$|async"></div> -->
+  <a class="menu-svg" (click)="filterMenuProxy.toggleFilterMenu(); $event.stopPropagation()">
+    <span>Filter</span>
+    <img width="24" height="24" src="../assets/icon/icon-filter.svg" alt="Filter">
+  </a>
+</div>
+<app-unified-filter-menu
+  [proxy]="filterMenuProxy">
+</app-unified-filter-menu>
+<!--Aircraft List-->
+<div class="content-wrap filters">
+  <div class="header-title">
+    <div>
+      <h2>Aircraft</h2>
+    </div>
+    <a [routerLink]="['add']">Add Aircraft</a>
+  </div>
+  <app-filter-bar
+    [darkMode]="true"
+    [filterDisplayName]="filterMenuProxy.filterBarOutput$|async"
+    (onFilterMenuToggle)="filterMenuProxy.toggleFilterMenu()">
+  </app-filter-bar>
+  <ng-container *ngIf="aircrafts$|async; let aircrafts">
+    <ul class="asset-list aircrafts" @listContainer *ngIf="aircrafts && aircrafts.length > 0; else emptyState">
+      <li @animatedListItem *ngFor="let aircraft of aircrafts$|async; trackBy trackAircraft" [routerLink]="[aircraft._id]">
+        <div class="identifier">
+          <div class="tailnumber">{{aircraft?.designation}}</div>
+          <div class="craft-type">{{aircraft?.type}}</div>
+        </div>
+        <a class="edit-action">
+          <img class="edit" src="../assets/icon/icon-edit-pencil.svg">
+        </a>
+      </li>
+    </ul>
+    <ng-template #emptyState>
+      <ul class="asset-list aircrafts">
+        <li class="empty-state">
+          <p>Your crew needs an aircraft to fly!</p>
+        </li>
+      </ul>
+    </ng-template>
+  </ng-container>
+</div>

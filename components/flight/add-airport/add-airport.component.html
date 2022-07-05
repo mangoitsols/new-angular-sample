@@ -1,0 +1,25 @@
+
+    <div class="wrapper">
+      <div class="header">
+        <h4>New Airport</h4>
+        <img (click)="cancel()" src="../../../assets/icon/icon-close.svg" alt="Close">
+      </div>
+      <section [formGroup]="airportForm">
+        <div class="form-control">
+          <label for="icao_code">4 Letter ICAO/Identifier</label>
+          <input type="text" id="icao_code" placeholder="Enter the 4 Letter ICAO Identifier" formControlName="icao_code">
+          <div class="issue-notice" *ngIf="icaoControl.invalid && icaoControl.touched">
+            {{ icaoControl.getError('unique_icao') || 'Please enter up to 4 letters/numbers.' }}
+          </div>
+        </div>
+        <div class="form-control"> 
+          <label for="city">Location/Description</label>
+          <input type="text" id="city" placeholder="Enter a Location or Short Description " formControlName="city">
+        </div>
+      </section>
+      <div class="controls">
+        <!-- <button class="btn btn-secondary" (click)="cancel()">Cancel</button> -->
+        <button class="btn btn-primary" (click)="save()" [disabled]="airportForm.invalid">Save</button>
+      </div>
+    </div>
+

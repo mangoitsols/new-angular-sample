@@ -1,0 +1,15 @@
+<ng-container *ngIf="!(isDisabled$|async)">
+  <label for="flight-detail-pic-responsible" class="step-label">Who is responsible for this assessment?</label>
+
+  <div class="grid-2_lg-2_md-2_sm-2_xs-1" id="flight-detail-pic-responsible">
+    <div class="col" *ngFor="let field of userFields">
+      <div class="radio-group">
+        <div class="selection">
+          <input [id]="'select_'+field.fieldName" type="radio" [formControl]="formControl" [value]="controlValue(field)" [checked]="isSelected(field)">
+        </div>
+        <label [for]="'select_'+field.fieldName">{{ field.label }}</label>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

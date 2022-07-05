@@ -1,0 +1,12 @@
+<div>
+  <label for="flight-detail-designation" class="step-label">
+    {{ field.label }}
+  </label>
+  <input id="flight-detail-designation" type="text" inputmode="numeric"
+         class="form-control step-details step-details-vertical" [placeholder]="field.label"
+         [formControl]="formControl">
+
+  <div *ngIf="hasErrors()" class="issue-notice">
+    Entry must be a valid number.
+  </div>
+</div>

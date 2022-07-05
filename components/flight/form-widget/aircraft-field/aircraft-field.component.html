@@ -1,0 +1,21 @@
+<div class="input-group">
+  <div class="label-container">
+
+    <label [for]="field.fieldName" class="step-label">{{ field.label }}</label>
+    <label><a (click)="addAircraft()" class="link">Add new aircraft</a></label>
+  </div>
+
+  <input [id]="field.fieldName"
+         class="form-control step-details step-details-vertical"
+         [ngbTypeahead]="adapter.bindSearch(instance)"
+         [formControl]="formControl"
+         [inputFormatter]="adapter.inputFormatter"
+         [resultFormatter]="adapter.resultFormatter"
+         (focus)="adapter.focus$.next($any($event).target.value)"
+         (click)="adapter.click$.next($any($event).target.value)"
+         placeholder="Select an Aircraft"
+         #instance="ngbTypeahead"
+  >
+  <div *ngIf="hasErrors()" class="issue-notice">Selecting an aircraft for this flight is required.
+  </div>
+</div>

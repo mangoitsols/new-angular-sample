@@ -1,0 +1,133 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.page-wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: block;
+}
+
+.header {
+  background: $light-blue-primary;
+  border-bottom: none;
+  position: static;
+}
+
+.flight-summary .header-wrap {
+	height: 50px;
+	@include flex();
+	justify-content: flex-end;
+  align-items: center;
+  background: transparent;
+  border-bottom: none;
+  margin: 0 1rem;
+  .actions a span {
+    color: white;
+    @include bp (tablet) {
+      display: block;
+    }
+  }
+}
+
+.flight-summary {
+  background-image: linear-gradient(180deg, $dark-blue-secondary 0%, $blue-shade-7 55%);
+  min-height: 100vh;
+}
+
+.navbar.flight-summary {
+  background: none;
+}
+.heading h1 {
+  @include ff($family-cond,$light);
+  font-size: 28px;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $white;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  padding-top: 40px;
+}
+
+.ready-flight {
+  //@include flex();
+  //justify-content: center;
+  
+  //margin-top: 50px;
+  //padding-top: 20px;
+  overflow: hidden;
+}
+
+.button-wrapper {
+  @include flex();
+  flex: 1 1;
+  justify-content: center;
+  align-content: center;
+  padding-top: 63px;
+}
+
+@include bp(browser) {
+  .navbar-fixed-bottom.create-frat-nav {
+    position: relative;
+  }
+}
+
+.main-cta {
+  @extend %btn-primary-dark;
+  margin: 20px 0;
+  flex: 1;
+  @include bp(tablet) {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+.save-close {
+  font-size: 16px;
+  cursor: pointer;
+  color: $white;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.secondary-buttons {
+  @extend %wrapper;
+  margin: 0 auto 50px;
+  width: 100%;
+  max-width: 480px;
+  a {
+    margin: 20px 0;
+    @extend %btn;
+    border: 1px solid white;
+  }
+}
+
+// .cancel-button {
+//   @include flex();
+//   justify-content: center;
+//   align-items: center;
+//   height: 49px;
+//   width: 40px;
+//   margin: 0 auto;
+//   // @include bp(browser) {
+//   //   position: absolute;
+//   //   right: 5px;
+//   // }
+// }
+
+// .cancel-label {
+//   position: absolute;
+//   bottom: 50px;
+//   @include ff($family,$medium);
+//   font-size: 12px;
+//   //font-stretch: normal;
+//   text-align: center;
+//   color: $blue-shade-5;
+//   // @include bp(browser) {
+//   //   bottom: 14px;
+//   //   right: 50px;
+//   // }
+// }

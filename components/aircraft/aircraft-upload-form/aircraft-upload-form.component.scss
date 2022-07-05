@@ -1,0 +1,83 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+#bulk-invite-feature {
+  margin-top: 25px;
+  // h2 {
+  //   text-align: left;
+  //   font-size: 16px;
+  //   margin-top: 25px;
+  //   margin-bottom: 15px;
+  //   color: $blue-shade-7;
+  //   font-weight: $medium;
+  // }
+  .help-text {
+    margin-bottom: 30px;
+    p {
+      text-align: left;
+      span {
+        font-style: italic;
+        font-size: 11px;
+      }
+    }
+    span.label {
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: $bold;
+      display: block;
+      color: $blue-shade-7;
+    }
+    a.link {
+      margin-top: 10px;
+      text-align: left;
+    }
+    +.help-text {
+      margin-bottom: 0;
+    }
+  }
+  label.link {
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    @include ff($family, $reg);
+    display: block;
+    margin: 20px auto 10px;
+    color: $light-blue-primary;
+    display: inline;
+    &:hover {
+      color: $light-blue-secondary;
+    }
+  }
+  input[type="file"] {
+    display: none;
+  }
+}
+.results {
+  margin-top: 30px;
+  @include ff($family, $reg);
+  h5 {
+    margin: 0 0 10px;
+    color: $dark-blue-secondary;
+  }
+  ul {
+    padding-left: 20px;
+    li {
+      @include ff($family, $reg);
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  ul {
+    padding: 0;
+    li {
+      list-style-type: none;
+      &.error-item {
+        color: red;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+}

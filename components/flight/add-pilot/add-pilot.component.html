@@ -1,0 +1,54 @@
+
+    <div class="wrapper">
+      <div class="header">
+        <h4>New Pilot</h4>
+        <img (click)="cancel()" src="../../../assets/icon/icon-close.svg" alt="Close">
+      </div>
+      <form [formGroup]="pilotForm" novalidate>
+        <div class="grid">
+          <div class="col-6_sm-12">
+            <label>First Name</label>
+            <input class="form-control" type="text" placeholder="First Name" formControlName="firstName">
+            <div
+              *ngIf="pilotForm.get('firstName').invalid &&(pilotForm.get('firstName').dirty || pilotForm.get('firstName').touched)"
+              class="issue-notice">
+              Please enter the pilot's first name.
+            </div>
+          </div>
+          <div class="col-6_sm-12">
+            <label>Last Name</label>
+            <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName">
+            <div
+              *ngIf="pilotForm.get('lastName').invalid && (pilotForm.get('lastName').dirty || pilotForm.get('lastName').touched)"
+              class="issue-notice">
+              Please enter the pilot's last name.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>Email</label>
+          <input class="form-control" type="text" placeholder="Email" formControlName="email">
+          <div
+            *ngIf="pilotForm.get('email').invalid && (pilotForm.get('email').dirty || pilotForm.get('email').touched)"
+            class="issue-notice">
+            Please enter a valid email.
+          </div>
+        </div>
+        <div>
+          <label>Role/Permissions</label>
+          <select class="form-control" id="role" placeholder="Select Role" formControlName="assignedRole">
+            <option *ngFor="let role of roleDefinitions" [ngValue]="role.key" [disabled]="role.disabled">
+              {{role!.label}}
+            </option>
+          </select>
+          <div class="helptip">
+            <p class="description" [innerHTML]="roleDescription()"></p>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn btn-primary" [disabled]="!pilotForm.valid" (click)="sendInvite()">Send Invite</button>
+        </div>
+      </form>
+    </div>
+
+

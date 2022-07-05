@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <div class="header">
+    <h4>New Aircraft</h4>
+    <img (click)="cancel()" src="/assets/icon/icon-close.svg" alt="Close">
+  </div>
+
+  <section [formGroup]="form">
+
+    <div class="input-group">
+      <label>Aircraft Identifier</label>
+      <input formControlName="designation" type="text">
+    </div>
+
+    <div class="input-group">
+      <label>Aircraft Type</label>
+      <input formControlName="type" type="text">
+    </div>
+
+  </section>
+
+  <div class="controls">
+    <button class="btn btn-primary" [disabled]="form.invalid" (click)="submit()">Save</button>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="flight-card">
+  <div class="card-summary">
+    <div class="top">
+      <div class="assigned">
+        <label for="assigned">Assigned</label>
+        <div id="assigned">
+          {{ abbreviatedName(flight?.responsiblePilot) | titlecase | emptyState}}
+        </div>
+      </div>
+      <div class="risk">
+        <div class="original-score" [ngClass]="ogStatusClass()" *ngIf="isMitigated()">
+          <div class="og-score">{{flight?.frat?.originalScore}}</div>
+          <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.43205 4.81902L0.492263 1.87923C-0.137702 1.24926 0.308465 0.172119 1.19937 0.172119H7.07895C7.96986 0.172119 8.41602 1.24926 7.78606 1.87923L4.84627 4.81902C4.45574 5.20954 3.82258 5.20954 3.43205 4.81902Z"/>
+          </svg>
+        </div>
+        <div *ngIf="!(flight?.submissionDate)" class="flight-score" [ngClass]="statusClass()">
+          <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5774 31.5363C15.8758 31.8348 16.2677 31.9848 16.6595 31.9848C17.0514 31.9848 17.4432 31.8363 17.7417 31.5363L31.5177 17.7604C32.1162 17.1619 32.1162 16.193 31.5177 15.596L17.7417 1.82008C17.1432 1.22159 16.1758 1.22159 15.5774 1.82008L1.80141 15.596C1.20292 16.1945 1.20292 17.1619 1.80141 17.7604L15.5774 31.5363ZM16.6595 28.2898L5.04794 16.6782L16.6595 5.06815L28.2711 16.6782L16.6595 28.2898ZM17.9928 11.3447H15.3262V19.3447H17.9928V11.3447ZM16.6598 23.6781C17.5803 23.6781 18.3265 22.9319 18.3265 22.0114C18.3265 21.0909 17.5803 20.3447 16.6598 20.3447C15.7394 20.3447 14.9932 21.0909 14.9932 22.0114C14.9932 22.9319 15.7394 23.6781 16.6598 23.6781Z" fill="#DFE7F2"/>
+          </svg>
+        </div>
+        <div *ngIf="flight?.submissionDate" class="flight-score" [ngClass]="statusClass()">
+          <div class="score">
+            <div class="score-number">{{flight.score}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meter">
+      <div class="indicator" [style.width]="((flight?.frat?.score/50) * 100) + '%'" [ngClass]="statusClass()">
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="threshold" *ngIf="!(flight?.submissionDate)">
+        Unknown Risk
+      </div>
+      <div class="threshold" *ngIf="flight?.submissionDate">
+        <ng-container [ngSwitch]="flight?.frat?.scoreRange?.canonicalName">
+          <ng-container *ngSwitchCase="'red'">
+            Severe Risk
+          </ng-container>
+          <ng-container *ngSwitchCase="'amber'">
+            Moderate Risk
+          </ng-container>
+          <ng-container *ngSwitchCase="'green'">
+            Mild Risk
+          </ng-container>
+          <ng-container *ngSwitchCase="'perfect'">
+            Mitigated Risk
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="form">
+        {{ assessmentTitle }}
+      </div>
+    </div>
+  </div>
+  <div class="card-details">
+    <div class="card-data">
+
+      <div class="data-point" *ngFor="let field of flight.fields">
+        <label [for]="field.fieldName">{{ field.label }}</label>
+        <div>
+          {{ flight.getFormattableField(field)| fieldValue | emptyState }}
+        </div>
+      </div>
+
+    </div>
+    <div class="card-cta">
+        <div class="editable">
+          <div class="edit" (click)="editFlight()" *ngIf="showEdit && canEdit()">
+            <img src="/assets/icon/icon-edit-pencil.svg" alt="Edit" >
+          </div>
+
+          <ng-container *ngIf="ctaState; let currentCtaState">
+            <button class="cta" [ngClass]="currentCtaState.style" (click)="currentCtaState.action()" [disabled]="currentCtaState.disabled">
+              {{ currentCtaState.buttonText }}
+            </button>
+          </ng-container>
+
+        </div>
+
+    </div>
+  </div>
+</div>

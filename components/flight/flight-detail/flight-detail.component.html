@@ -1,0 +1,69 @@
+<div class="createFlight">
+  <div class="flight-detail">
+    <h1 class="flight-detail-heading" *ngIf="currentStep === stepDefs.ASSESSMENT">Assessment Type</h1>
+    <h1 class="flight-detail-heading" *ngIf="currentStep === stepDefs.DETAILS">Assessment Details</h1>
+
+    <!--  setup steps   -->
+    <!-- Assessment Type -->
+    <ng-container *ngIf="currentStep === stepDefs.ASSESSMENT">
+      <flight-detail-assessment
+        [assessmentSelection]="this.assessmentForm"
+        [assessments]="assessments$|async">
+      </flight-detail-assessment>
+
+      <div class="navigation-buttons" *ngIf="!noAssessments">
+        <button class="wizard-step-next-full"
+                [disabled]="!canStepNext"
+                (click)="onStepNext()">
+          Continue
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="setupForm">
+
+      <!-- Departure/Destination-->
+      <ng-container *ngIf="currentStep === stepDefs.DETAILS">
+        <div class="step-content">
+          <div form-widget *ngFor="let field of (setupForm?.fields || [])"
+               [field]="field"
+               [control]="getFormControl(field)"
+               [context]="setupForm">
+          </div>
+        </div>
+
+        <!-- navigation buttons -->
+        <div class="navigation-buttons grid">
+          <div class="col" *ngIf="canStepBack">
+            <button class="wizard-step-previous"
+                    (click)="onStepBack()">
+              Go Back
+            </button>
+          </div>
+          <div class="col">
+            <mat-spinner-button class="wizard-step-finish"
+                                [options]="saveButtonOptions"
+                                (btnClick)="onFinish()">
+              Save Details
+            </mat-spinner-button>
+          </div>
+          <div class="col-12" *ngIf="canDelete">
+            <a class="link" (click)="deleteFlight()">Delete Assessment</a>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <div class="right-corner-control create-flight">
+      <a (click)="cancelAction()" class="cancel-button">
+        <img class="mobile" alt="Preflight-Mitigator"
+             src="/assets/icon/icon-cancel-frat.svg"/>
+        <div class="cancel-flight-btn">
+          <span>{{cancelMsg}}</span>
+        </div>
+        <img class="desktop" alt="close" src="/assets/icon/icon-close-white.svg">
+      </a>
+    </div>
+  </div>
+</div>
+

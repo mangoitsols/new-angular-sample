@@ -1,0 +1,327 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.flight-card {
+  background-color: $white;
+  @include box-shadow(0, 0, 10px, 0, rgba(0,0,0,0.12));
+  margin: 0 auto 12px;
+  padding: 2px;
+  @include radius(4px);
+  @include flex();
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  //max-width: 480px;
+  min-height: 150px;
+  @include bp(tablet-horizontal) {
+    width: auto;
+    flex-direction: row;
+    max-width: 100%;
+    margin: 0 auto 22px;
+  }
+  .card-summary {
+    @include flex();
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch; 
+    width: 100%;
+    //max-width: 480px;
+    background: $gray-shade-1;
+    @include bp(mini) {
+      padding: 15px;
+    }
+    padding: 25px;
+    @include radii (2px, 2px, 0, 0);
+    @include bp(tablet-horizontal) {
+      width: auto;
+      max-width: 100%;
+      @include radii (2px, 0, 0, 2px);
+      min-width: 280px;
+    }
+    // @include bp(browser) {
+    // }
+    .top {
+      @include flex();
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .assigned {
+      label {
+        color: $blue-shade-4;
+        @include ff($family, $medium);
+        font-size: 11px;
+        margin-top: 0;
+        margin-bottom: 3px;
+      }
+      div {
+        color: $blue-shade-6;
+        @include ff($family, $bold);
+        font-size: 16px;
+      }
+    }
+    .risk {
+      @include flex();
+      justify-content: flex-end;
+      flex-direction: row;
+      align-self: center;
+      .status-mild {
+        color: $mild;
+        svg path {
+          fill: $mild;
+        }
+      }
+      .status-moderate {
+        color: $moderate-dark;
+        svg path {
+          fill: $moderate-dark;
+        }
+      }
+      .status-severe {
+        color: $severe;
+        svg path {
+          fill: $severe;
+        }
+      }
+      .status-extreme {
+        color: $extreme;
+        svg path {
+          fill: $extreme;
+        }
+      }
+      .original-score {
+        @include flex();
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 10px;
+      }
+      .og-score {
+        @include ff($family, $bold);
+        font-size: 12px;
+      }
+    }
+    .meter {
+      background: $blue-shade-2;
+      @include radius(20px);
+      height: 10px;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .indicator {
+      @include radius(20px);
+      height: 10px;
+      width: 75%;
+      max-width: 100%;
+      &.status-mild,
+      &.status-score-zero {
+        background-color: $mild;
+      }
+      &.status-moderate {
+        background-color: $moderate;
+      }
+      &.status-severe {
+        background-color: $severe;
+      }
+      &.status-extreme {
+        background-color: $extreme;
+      }
+    }
+    .bottom {
+      @include flex();
+      flex-direction: row;
+      justify-content: space-between;
+      @include ff($family, $bold);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: $blue-shade-4;
+      .form {
+        text-align: right;
+        margin-left: 20px;
+      }
+    }
+  }
+  .card-details {
+    width: 100%;
+    @include flex();
+    flex-direction: column;
+    justify-content: space-between;
+    @include bp(med-browser) {
+      flex-direction: row;
+    }
+  }
+  .card-data {
+    @include flex();
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    @include bp(mini) {
+      margin: 5px 0;
+    }
+    margin: 15px 10px;
+    @include bp(med-browser) {
+      margin: 10px 0 10px 10px;
+    }
+    .data-point {
+      padding: 10px 15px;
+      flex-basis: 50%;
+      @include bp(tablet-horizontal){
+        flex-basis: auto;
+      }
+      label {
+        color: $blue-shade-4;
+        @include ff($family, $medium);
+        font-size: 11px;
+        margin-top: 0;
+        margin-bottom: 3px;
+      }
+      div {
+        color: $blue-shade-6;
+        @include ff($family, $bold);
+        font-size: 16px;
+      }
+    }
+  }
+  .card-cta {
+    @include bp(mini) {
+      margin: 0 15px 15px;
+    }
+    margin: 0 25px 25px;
+    @include flex();
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include bp(browser) {
+      align-items: flex-end;
+    }
+    @include bp(med-browser) {
+      margin: 0 30px 0 10px;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    @include bp(large-browser) {
+      margin: 0 40px 0 20px;
+    }
+    .cta {
+      @extend %btn;
+      @include bp(mini) {
+        height: 30px;
+        // width: 30px;
+        min-width: 30px;
+      }
+      // padding: 0 20px;
+      width: 100%;
+      height: 40px;
+      min-width: 40px;
+      @include bp(browser) {
+        width: auto;
+        min-width: 160px;
+      }
+      &.completed {
+        background: $blue-shade-0;
+        color: $light-blue-primary;
+        &:hover {
+          background: $blue-shade-2;
+        }
+      }
+      &.assigned-other {
+        cursor: no-drop;
+      }
+      &.needs-mitigation {
+        background: #D8EBF6;
+        color: $dark-blue-primary;
+        &:hover {
+          background: #C7DDEA;
+        }
+      }
+      &.disabledcta {
+        background: #EEEEEE;
+        color: #909090;
+        cursor: no-drop;
+      }
+      &.new {
+        @extend %btn-primary;
+        @include bp(mini){
+          height: 30px;
+        }
+        height: 40px;
+      }
+    }
+    .editable {
+      @include flex();
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      @include bp(browser) {
+        width: auto;
+      }
+      .edit {
+        @include bp(mini) {
+          height: 30px;
+          width: 30px;
+          min-width: 30px;
+        }
+        @include flex();
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        @include radius(2px);
+        background: $blue-shade-0;
+        height: 40px;
+        width: 40px;
+        min-width: 40px;
+        margin-right: 1rem;
+        &:hover {
+          background: $blue-shade-1;
+        }
+      }
+    }
+  }
+}
+.flight-score {
+  background: $gray-shade-1;
+  @include ff($family, $bold);
+  font-size: 35px;
+  text-align: right;
+  @include flex();
+  justify-content: flex-end;
+  flex-direction: column;
+  align-self: center;
+  &.status-mild,
+  &.status-score-zero {
+    .score-number {
+      color: $mild;
+    }
+  }
+  &.status-moderate {
+    .score-number {
+      color: $moderate-dark;
+    }
+  }
+  &.status-severe {
+    .score-number {
+      color: $severe;
+    }
+  }
+  .score-number {
+   letter-spacing: -1px;
+   text-indent: -2px;
+   line-height: 1;
+  }
+  .mitigation-indicator {
+    @include ff($family, $bold);
+    font-size: 7px;
+    color: $blue-shade-4;
+    letter-spacing: 0px;
+    text-indent: 0px;
+    @include bp(mini) {
+      display: none;
+    }
+    @include bp(tablet-horizontal) {
+      font-size: 8px;
+    }
+  } 
+}

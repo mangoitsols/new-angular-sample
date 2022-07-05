@@ -1,0 +1,69 @@
+<app-breadcrumb linkText="Back to Aircraft List"></app-breadcrumb>
+
+<app-card>
+  <h2 *ngIf="mode !== 'edit'"  title>Add Aircraft</h2>
+  <h2 *ngIf="mode === 'edit'" title>Aircraft Details</h2>
+  <a class="secondary" nav-link [routerLink]="['upload']" *ngIf="mode === 'add'">Add Multiple</a>
+  <div card-body [formGroup]="aircraftForm">
+    <div class="grid">
+      <div class="col-6_md-12">
+        <label>Aircraft Identifier</label>
+        <input class="form-control aircraft-identifier" type="text" placeholder="Aircraft Identifier (make, model, tail #)" formControlName="designation">
+        <div *ngIf="hasDesignationError()" class="issue-notice">Please enter an aircraft identifier.</div>
+      </div>
+      <div class="col-6_md-12">
+        <label>Aircraft Type</label>
+        <input class="form-control aircraft-type" type="text" placeholder="Enter Type of Aircraft" formControlName="type">
+        <div *ngIf="hasTypeError()" class="issue-notice">Please enter the type of aircraft.</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="assessment-association">
+      <div class="header">
+        <h3>Assessment Association</h3>
+        <p>Select the default form to associate with this aircraft.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="col-4_lg-6_sm-12" *ngFor="let assessment of (assessments$|async)">
+            <div class="check-wrap">
+              <label class="radio-label" for="defaultAssessment">
+                <input id="defaultAssessment" type="radio" [value]="assessment._id" formControlName="defaultAssessment">
+                {{assessment.title}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <p><span>Note:</span> An aircraft can be assigned to any risk form; the default selection only determines
+        which assessment to assign when flight data is synced through an integration with your scheduling software.
+        </p>
+      </div>
+    </div>
+
+    <div class="card-controls">
+      <div class="row">
+        <button class="btn-primary" [disabled]="!isFormValid()" (click)="save()">{{ buttonCta }}</button>
+        <button *ngIf="mode === 'edit'" class="btn-secondary btn" (click)="handleExitClick()">Cancel</button>
+      </div>
+      <div class="row" *ngIf="mode === 'edit'" >
+        <a class="link delete" (click)="onDeleteClicked()">
+          <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g>
+                <rect x="0" y="0" width="24" height="24"></rect>
+                <path d="M9.26337581,8.10881905 L9.26337581,7.3817729 C9.26337581,6.5080212 9.97169152,5.7997055 10.8454432,5.7997055 L13.1545567,5.7997055 C14.0283084,5.7997055 14.7366242,6.5080212 14.7366242,7.3817729 L14.7366242,8.10881905 L17.1955055,8.10881905 C17.431613,8.10881905 17.6230161,8.30022207 17.6230161,8.53632968 C17.6230161,8.77243727 17.431613,8.9638403 17.1955055,8.9638403 L16.4684593,8.9638403 L16.4684593,16.618227 C16.4684593,17.4919787 15.7601436,18.2002945 14.8863919,18.2002945 L9.11360806,18.2002945 C8.23985636,18.2002945 7.53154066,17.4919787 7.53154066,16.618227 L7.53154066,8.9638403 L6.80449451,8.9638403 C6.56838691,8.9638403 6.37698388,8.77243727 6.37698388,8.53632968 C6.37698388,8.30022207 6.56838691,8.10881905 6.80449451,8.10881905 L9.26337581,8.10881905 Z M10.1183971,8.10881905 L13.8816029,8.10881905 L13.8816029,7.3817729 C13.8816029,6.9802364 13.5560933,6.65472675 13.1545567,6.65472675 L10.8454432,6.65472675 C10.4439067,6.65472675 10.1183971,6.9802364 10.1183971,7.3817729 L10.1183971,8.10881905 Z M15.613438,8.9638403 L8.38656191,8.9638403 L8.38656191,16.618227 C8.38656191,17.0197636 8.71207155,17.3452732 9.11360806,17.3452732 L14.8863919,17.3452732 C15.2879285,17.3452732 15.613438,17.0197636 15.613438,16.618227 L15.613438,8.9638403 Z M10.4179326,11.4227216 C10.4179326,11.186614 10.6093356,10.995211 10.8454432,10.995211 C11.0815508,10.995211 11.2729539,11.186614 11.2729539,11.4227216 L11.2729539,14.8863919 C11.2729539,15.1224996 11.0815508,15.3139026 10.8454432,15.3139026 C10.6093356,15.3139026 10.4179326,15.1224996 10.4179326,14.8863919 L10.4179326,11.4227216 Z M12.7270461,11.4227216 C12.7270461,11.186614 12.9184492,10.995211 13.1545567,10.995211 C13.3906643,10.995211 13.5820674,11.186614 13.5820674,11.4227216 L13.5820674,14.8863919 C13.5820674,15.1224996 13.3906643,15.3139026 13.1545567,15.3139026 C12.9184492,15.3139026 12.7270461,15.1224996 12.7270461,14.8863919 L12.7270461,11.4227216 Z" id="trash" fill="#122B3B" fill-rule="nonzero"></path>
+              </g>
+            </g>
+          </svg>
+          <span>
+            Delete
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</app-card>

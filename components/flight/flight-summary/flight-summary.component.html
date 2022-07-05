@@ -1,0 +1,57 @@
+<div class="flight-summary">
+
+    <!-- <div class="header"> -->
+      <div class="header-wrap">
+        <div class="content-container">
+          <div class="left">
+          </div>
+          <div class="middle">
+            <!-- <img alt="Preflight-Mitigator" ui-sref="flights.list" src="../../../assets/img/brand/logo-white-long.svg"/> -->
+          </div>
+          <div class="right">
+            <div class="actions">
+              <a [routerLink]=" ['/'] ">
+                <span>Go Back to Flights</span>
+                <img class="account-menu" src="../../assets/icon/icon-close-white.svg" alt="close" >
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    <div class="page-wrapper">
+    <div class="heading">
+      <!--If Pilot Responsible-->
+      <h1 *ngIf="currentUserIsResponsiblePilot(); else titleNotResponsible">
+        Your Flight is Ready to Assess!
+      </h1>
+      <ng-template #titleNotResponsible>
+        <!--If Pilot Not Responsible-->
+        <h1>
+          This risk assessment is assigned to {{ (responsiblePilot$|async)?.abbreviatedName }}!
+        </h1>
+      </ng-template>
+
+    </div>
+    <div class="ready-flight">
+      <div class="wrap" *ngIf="flight">
+        <flight-card [flight]="flight" [showCTA]="false" [expandCard]="true"></flight-card>
+        <div class="secondary-buttons">
+            <span *ngIf="isAdmin() || currentUserIsPIC() || currentUserIsSIC()">
+              <a (click)="createNextLeg()" class="save-close">Add Next Leg</a>
+              <a (click)="editFlight(flight)" class="save-close">Edit Flight</a>
+              <a (click)="deleteFlight(flight)" class="save-close">Delete Flight</a>
+              <!-- <a class="save-close" *ngIf="reporterIsPR();" routerLink="/flights">Take Assessment Later</a> -->
+            </span>
+            <!-- <a class="save-close" routerLink="/flights">
+              Back to Flight List
+            </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<modal *ngIf="showConfirmDelete"
+       message="Are you sure you want to delete this flight?"
+       btnPositiveText="Delete"
+       (close)="confirmDelete($event)"></modal>

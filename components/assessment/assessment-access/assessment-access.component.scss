@@ -1,0 +1,95 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.filter-btn {
+	position: fixed;
+	z-index: 31;
+	@include bp(belowtablet) {
+		right: .75rem;
+	}
+	right: 1rem;
+	top: 12px;
+	// @include flex();
+	// align-items: center;
+	@include bp(tablet) {
+		span {
+			display: block;
+			padding-right: 5px;
+		}
+	}
+}
+.header-title p {
+	margin: 0;
+	text-align: left;
+	@include bp(belowtablet) {
+		display: none;
+	}
+}
+.selectall {
+	min-width: 90px;
+}
+
+ul.form-access {
+	list-style-type: none;
+	margin: 0 -1rem;
+	padding: 0;
+	// @include flex();
+	// flex-direction: row;
+	// flex-wrap: wrap;
+	// flex: 1 0 calc(50% - 10px);
+	li {
+		margin-bottom: 1.5rem;
+		&:first-child {
+			margin-top: 1.5rem;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		@include bp(med-browser) {
+			&:nth-child(2) {
+				margin-top: 1.5rem;
+			}
+			&:nth-last-child(2):nth-child(odd) {
+				margin-bottom: 0;
+			}
+		}
+		.wrapper {
+			@include flex();
+			flex-direction: row;
+			align-items: center;
+			@include radius(2px);
+			border: 1px solid $blue-shade-2;
+			padding: 1rem;
+		}
+		.checkbox {
+			width: 45px;
+			//min-width: 15%;
+		}
+		.user-details {
+			width: 85%;
+			label {
+				margin: 0;
+				color: $blue-shade-6;
+			}
+			#name {
+				font-size: 16px;
+				line-height: 20px;
+				@include ff($family,$bold);
+			}
+			#email {
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: $reg;
+				max-width: 100%;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			#role {
+				font-size: 12px;
+				line-height: 18px;
+				font-weight: $medium;
+			}
+		}
+	}
+}

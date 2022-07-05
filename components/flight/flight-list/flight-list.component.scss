@@ -1,0 +1,229 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.app-container.flights {
+  flex-direction: column;
+}
+
+// .flights-list-wrapper {
+//   margin-bottom: 4rem;
+//   @include bp(browser) {
+//     margin-bottom: 3rem;
+//   }
+// }
+
+.content-container {
+  &.desktop {
+    display: none;
+  }
+  @include bp(tablet-horizontal) {
+    &.mobile {
+			display: none;
+    }
+    &.desktop {
+      @include flex();
+    }
+	}
+}
+// .flight-list {
+//   padding-top: 20px;
+// 	position: relative;
+// 	top: 80px;
+// 	@include bp(browser) {
+// 		top: 90px;
+//     padding-top: 30px;
+//   }
+// }
+// .flights-wrapper {
+//   max-width: 1024px;
+//   margin: 0 auto;
+//   //padding: 0 20px;
+//   display: block;
+// }
+
+.pending-frats {
+  margin-top: 70px;
+}
+
+.flights-list-header {
+  border-top: 1px solid $blue-shade-2;
+}
+
+.completed-wrap {
+  @include ff($family);
+  height: 70px;
+  @include flex();
+  align-items: center;
+  font-size: 20px;
+  line-height: 1.25;
+  color: $dark-blue-secondary;
+  border-top: 1px solid $white;
+}
+
+// .section-header-label {
+//   flex: 1;
+// }
+
+// .section-header-icon {
+//   padding-right: 10px;
+// }
+
+// .filter-descriptor {
+//   display: none;
+//   @include bp(browser) {
+//    display: block; 
+//   }
+//   position: fixed;
+//   top: 50px;
+//   left: 0;
+//   border-bottom: 1px solid #DFE7F2;
+//   background-color: $blue-shade-1;
+//   width: 100%;
+//   .descriptor-wrap {
+//     max-width: 1024px;
+//     padding: 0 20px;
+//     margin: 0 auto;
+//     @include flex();
+//     justify-content: space-between;
+//     flex-direction: row;
+//     align-items: center;
+//     height: 26px;
+//   }
+//   .title {
+//     color: #48585F;
+//     @include ff($family, $medium);
+//     font-size: 14px;
+//     text-transform: uppercase;
+//     line-height: 1;
+//   }
+//   .link {
+//     margin: 0;
+//   }
+// }
+
+.flight-list-bottom-padding {
+  padding-bottom: 100px;
+}
+
+.empty-state {
+  @include radius(4px);
+  text-align: center;
+  text-transform: none;
+  font-size: 14px;
+  @include ff($family, $reg);
+  color: $blue-shade-6;
+  padding: 0 20px 20px;
+  margin: 0 0 30px;
+  @include bp(tablet) {
+    margin: 0 auto 30px;
+    width: 480px;
+  }
+  h4 {
+    margin: 40px 0 5px;
+    color: $light-blue-primary;
+  }
+  p + p {
+    margin: 0 0 10px;
+  }
+  img {
+    margin: 0 auto 40px;
+  }
+}
+
+.wrap-me {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 35;
+}
+.filter-menu-wrap {
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 11;
+}
+
+.arrow-up {
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid $blue-shade-7;
+  position: absolute;
+  right: 22px;
+  top: 40px;
+  z-index: 33;
+  @include bp(tablet) {top: 50px;}
+}
+
+.filter-menu {
+  margin: 0 auto;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1024px;
+  background-color: $blue-shade-7;
+  list-style-type: none;
+  position: absolute;
+  z-index: 11;
+  top: 50px;
+  right: 0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  @include bp(tablet) {
+    max-width: 330px;
+    height: auto;
+    margin: 0;
+    top: 60px;
+    right: 10px;
+    @include radius(4px);
+    @include box-shadow(0, 6px, 4px, 2px, rgba(72, 88, 95, 0.6));
+  }
+  li {
+    border-bottom: 1px solid $dark-blue-secondary;
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    @include ff($family, $reg);
+    font-size: 16px;
+    position: relative;
+    color: white;
+    @include bp(tablet) {
+      margin: 0 10px;
+    }
+    div {
+      margin: 15px;
+      padding: 15px 15px 15px 50px;
+      @include bp(tablet) {
+        margin: 10px 0;
+      }
+      display: block;
+      &::before {
+        content: url('../../../../assets/icon/filter-unselected.svg');
+        position: absolute;
+        left: 30px;
+        @include bp(tablet) {left: 15px;}
+      }
+    }
+    &.selected,
+    &:hover {
+      div {
+        @include radius(4px);
+        background: #1d262a;
+        cursor: pointer;
+        &::before {
+          content: url('../../../../assets/icon/filter-selected.svg');
+        }
+      }
+    }
+  }
+}
+
+.mobile-hide {
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+}

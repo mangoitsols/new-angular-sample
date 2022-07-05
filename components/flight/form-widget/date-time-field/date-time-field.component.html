@@ -1,0 +1,28 @@
+<label id="date-label" for="flight-detail-date" class="step-label">{{ field.label }}</label>
+
+<div class="grid" [formGroup]="control">
+
+
+  <div class="col">
+    <!-- DATE -->
+    <mat-form-field style="width: 100%;" id="flight-detail-date" floatLabel="never">
+      <input matInput [matDatepicker]="picker"
+             placeholder="MM / DD / YYYY"
+             class="form-control step-details step-details-vertical"
+             formControlName="date"
+             readonly
+             (click)="picker.open()" style="text-indent: 10px;">
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div *ngIf="hasErrors('date')" class="issue-notice">The date must be set for today or sometime in the future.
+    </div>
+  </div>
+  <div class="col">
+    <div id="time-input" class="time-form">
+      <input id="time" type="tel" formControlName="time" placeholder="1530" maxlength="4">
+    </div>
+    <div *ngIf="hasErrors('time')" class="issue-notice">
+      The time is required.
+    </div>
+  </div>
+</div>

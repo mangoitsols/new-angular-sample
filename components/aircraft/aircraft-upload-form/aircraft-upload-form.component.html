@@ -1,0 +1,51 @@
+<app-breadcrumb linkText="Back to Single Aircraft Form"></app-breadcrumb>
+
+<app-card>
+  <h2 title>Add Multiple Aircraft</h2>
+  <div card-body class="row">
+    <div id="bulk-invite-feature">
+      <div *ngIf="!(fileUploadResult$|async)">
+        <div class="help-text">
+          <span class="label">Step 1</span>
+          <p>Download our CSV template to see how to format your aircraft list. <br>
+            <span>
+              Note: CSV files can be opened in Excel, Google Sheets, or Libre Office.
+            </span>
+          </p>
+          <a class="link" target="_blank" href="/assets/PreflightMitigator_AddAircraft.csv">Download CSV Template</a>
+        </div>
+        <div class="help-text">
+          <span class="label">Step 2</span>
+          <p>When you are finished editing your aircraft list, export your spreadsheet as a CSV and upload it here.</p>
+          <div>
+            <label class="link" for="fileInput">Upload CSV File</label>
+            <input id="fileInput" type="file" (change)="fileChanges$.emit($event)">
+          </div>
+        </div>
+        <!-- <div class="card-controls">
+          <div class="row">
+            <label class="btn-primary" for="fileInput">Upload CSV File</label>
+            <input id="fileInput" type="file" (change)="fileChanges$.emit($event)">
+          </div>
+        </div> -->
+      </div>
+
+      <div *ngIf="fileUploadResult$|async">
+        <div class="card-controls">
+          <div class="row">
+            <button class="btn-primary" (click)="clearErrors()">Try Again</button>
+          </div>
+        </div>
+        <div class="results">
+          <h5>Upload Error log</h5>
+          <ul>
+            <li class="error-item" *ngFor="let failure of (fileUploadResult$|async).failed">
+              {{ formatError(failure) }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>
+

@@ -1,0 +1,116 @@
+<div class="factor-details edit-question" *ngIf="form$|async; let form" [formGroup]="form">
+  <div class="content-wrap">
+    <div class="header">
+      <h2 title>Risk Details</h2>
+      <div class="actions right">
+        <a (click)="deleteQuestion()" aria-label="Delete Factor" data-balloon-pos="down-right">
+          <img src="../../assets/icon/icon-trash.svg" alt="Delete Factor" >
+          <!-- <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.48913 6.37159C9.48913 5.33794 10.3271 4.5 11.3607 4.5H13.9249C14.9586 4.5 15.7965 5.33794 15.7965 6.37159V7.0642H18.4123C18.7378 7.0642 19.0018 7.32813 19.0018 7.65369C19.0018 7.97926 18.7378 8.24319 18.4123 8.24319H17.7197V16.6284C17.7197 17.6621 16.8817 18.5 15.8481 18.5H9.43757C8.40392 18.5 7.56598 17.6621 7.56598 16.6284V8.24319H6.87337C6.5478 8.24319 6.28387 7.97926 6.28387 7.65369C6.28387 7.32813 6.5478 7.0642 6.87337 7.0642H9.48913V6.37159ZM8.74496 16.6284V8.24319H16.5407V16.6284C16.5407 17.0109 16.2306 17.321 15.8481 17.321H9.43757C9.05505 17.321 8.74496 17.0109 8.74496 16.6284ZM10.7712 10.8589C10.7712 10.5334 11.0352 10.2695 11.3607 10.2695C11.6863 10.2695 11.9502 10.5334 11.9502 10.8589V14.7053C11.9502 15.0308 11.6863 15.2947 11.3607 15.2947C11.0352 15.2947 10.7712 15.0308 10.7712 14.7053V10.8589ZM13.3354 10.8589C13.3354 10.5334 13.5994 10.2695 13.9249 10.2695C14.2505 10.2695 14.5144 10.5334 14.5144 10.8589V14.7053C14.5144 15.0308 14.2505 15.2947 13.9249 15.2947C13.5994 15.2947 13.3354 15.0308 13.3354 14.7053V10.8589ZM11.3607 5.67898C10.9782 5.67898 10.6681 5.98908 10.6681 6.37159V7.0642H14.6175V6.37159C14.6175 5.98908 14.3074 5.67898 13.9249 5.67898H11.3607Z" fill="#2A3F4C"/>
+          </svg> -->
+        </a>
+
+        <a [routerLink]="'../../../../'" aria-label="Close Factor" data-balloon-pos="down-right">
+          <img class="close-factor" src="../../assets/icon/icon-close-details.svg" alt="Close Factor" >
+          <!-- <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.9071 7.41293C20.9071 6.99872 20.5713 6.66293 20.1571 6.66293C19.7429 6.66293 19.4071 6.99872 19.4071 7.41293L19.4071 18.3841C19.4071 18.7983 19.7429 19.1341 20.1571 19.1341C20.5713 19.1341 20.9071 18.7983 20.9071 18.3841V7.41293ZM14.6026 12.0808H5.42289C4.97089 12.0808 4.60107 12.4506 4.60107 12.9026C4.60107 13.3546 4.97089 13.7244 5.42289 13.7244H14.6026L10.5921 17.7349C10.2716 18.0554 10.2716 18.5732 10.5921 18.8937C10.9127 19.2142 11.4304 19.2142 11.7509 18.8937L17.1667 13.4779C17.4872 13.1574 17.4872 12.6396 17.1667 12.3191L11.7509 6.90331C11.4304 6.5828 10.9127 6.5828 10.5921 6.90331C10.2716 7.22382 10.2716 7.74979 10.5921 8.0703L14.6026 12.0808Z" fill="#48585F"/>
+          </svg> -->
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="question-editor">
+        <label for="question">Risk Factor Description</label>
+        <textarea id="question" type="text" placeholder="Enter a risk factor description" formControlName="question"></textarea>
+      </div>
+      <div *ngIf="hasTip(form)" class="tip">
+        <div>
+          <label for="tip">Help Tip</label>
+          <input id="tip" type="text" placeholder="Enter a hint or tip" formControlName="tip">
+        </div>
+        <img (click)="removeTip(form)" src="../../assets/icon/icon-trash.svg" alt="remove tip">
+      </div>
+      <div class="secondary-options">
+        <div>
+          <a (click)="addTip(form)" *ngIf="!hasTip(form)" class="addtip">
+            Add Help Tip
+          </a>
+        </div>
+      </div>
+      <h4>Options & Value</h4>
+      <ul class="options-list" formArrayName="answers">
+        <li class="option" *ngFor="let a of getAnswerGroups(form); let i = index" [formGroup]="a">
+          <div class="row option-details">
+            <div class="input">
+              <label *ngIf="i === 0; else defaultLabel">Option (default selection)</label>
+              <ng-template #defaultLabel>
+                <label>Option</label>
+              </ng-template>
+              <input class="answer" type="text" placeholder="Enter a possible answer"  formControlName="answer">
+            </div>
+            <ul class="score">
+              <li class="scoreValue" *ngFor="let points of [0,1,2,3,4,5]"
+                  [ngClass]="{'selected': a.get('pointValue').value == points}"
+                  (click)="updateAnswer(a, points)">
+
+
+                <input id="scoreValue" type="radio" formControlName="pointValue" [value]="points">
+                {{points}}
+              </li>
+            </ul>
+            <div class="score" *ngIf="a.get('pointValue').value > 0">
+              <app-checkbox label="Increase the entire risk to Moderate"
+                            [checked]="isScoreBehaviorChecked(a, 'warn')"
+                            (checkedChanged)="toggleTriggerLevels(a, 'warn', $event)"
+              ></app-checkbox>
+
+              <app-checkbox label="Increase the entire risk to Severe"
+                            [checked]="isScoreBehaviorChecked(a, 'fail')"
+                            (checkedChanged)="toggleTriggerLevels(a, 'fail', $event)"
+              ></app-checkbox>
+            </div>
+          </div>
+          <div class="row delete-option" *ngIf="canDeleteAnswer(form)" (click)="deleteAnswer(form, i)">
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.48913 6.37159C9.48913 5.33794 10.3271 4.5 11.3607 4.5H13.9249C14.9586 4.5 15.7965 5.33794 15.7965 6.37159V7.0642H18.4123C18.7378 7.0642 19.0018 7.32813 19.0018 7.65369C19.0018 7.97926 18.7378 8.24319 18.4123 8.24319H17.7197V16.6284C17.7197 17.6621 16.8817 18.5 15.8481 18.5H9.43757C8.40392 18.5 7.56598 17.6621 7.56598 16.6284V8.24319H6.87337C6.5478 8.24319 6.28387 7.97926 6.28387 7.65369C6.28387 7.32813 6.5478 7.0642 6.87337 7.0642H9.48913V6.37159ZM8.74496 16.6284V8.24319H16.5407V16.6284C16.5407 17.0109 16.2306 17.321 15.8481 17.321H9.43757C9.05505 17.321 8.74496 17.0109 8.74496 16.6284ZM10.7712 10.8589C10.7712 10.5334 11.0352 10.2695 11.3607 10.2695C11.6863 10.2695 11.9502 10.5334 11.9502 10.8589V14.7053C11.9502 15.0308 11.6863 15.2947 11.3607 15.2947C11.0352 15.2947 10.7712 15.0308 10.7712 14.7053V10.8589ZM13.3354 10.8589C13.3354 10.5334 13.5994 10.2695 13.9249 10.2695C14.2505 10.2695 14.5144 10.5334 14.5144 10.8589V14.7053C14.5144 15.0308 14.2505 15.2947 13.9249 15.2947C13.5994 15.2947 13.3354 15.0308 13.3354 14.7053V10.8589ZM11.3607 5.67898C10.9782 5.67898 10.6681 5.98908 10.6681 6.37159V7.0642H14.6175V6.37159C14.6175 5.98908 14.3074 5.67898 13.9249 5.67898H11.3607Z" fill="#2A3F4C"/>
+            </svg>
+          </div>
+        </li>
+        <li class="question-item newoption">
+          <a (click)="addAnswer(form)">
+            <div class="icon add-question">
+              <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-338.000000, -751.000000)">
+                    <g transform="translate(338.000000, 724.981689)"></g>
+                    <g transform="translate(338.000000, 751.000000)">
+                      <rect  x="0" y="0" width="24" height="24"></rect>
+                      <path d="M12,4.69329184 C16.0353835,4.69329184 19.3067082,7.9646165 19.3067082,12 C19.3067082,16.0353835 16.0353835,19.3067082 12,19.3067082 C7.9646165,19.3067082 4.69329184,16.0353835 4.69329184,12 C4.69329184,7.9646165 7.9646165,4.69329184 12,4.69329184 Z M12,5.60142299 C8.46616349,5.60142299 5.60142299,8.46616349 5.60142299,12 C5.60142299,15.5338365 8.46616349,18.398577 12,18.398577 C15.5338365,18.398577 18.398577,15.5338365 18.398577,12 C18.398577,8.46616349 15.5338365,5.60142299 12,5.60142299 Z M12.0243314,8.10814204 C12.2803562,8.10814204 12.4879053,8.31569118 12.4879053,8.57171602 L12.4879053,8.57171602 L12.4879053,11.536426 L15.428284,11.536426 C15.6843088,11.536426 15.891858,11.7439752 15.891858,12 C15.891858,12.2560248 15.6843088,12.463574 15.428284,12.463574 L15.428284,12.463574 L12.4879053,12.463574 L12.4879053,15.428284 C12.4879053,15.6843088 12.2803562,15.891858 12.0243314,15.891858 C11.7683065,15.891858 11.5607574,15.6843088 11.5607574,15.428284 L11.5607574,15.428284 L11.5607574,12.463574 L8.57171602,12.463574 C8.31569118,12.463574 8.10814204,12.2560248 8.10814204,12 C8.10814204,11.7439752 8.31569118,11.536426 8.57171602,11.536426 L8.57171602,11.536426 L11.5607574,11.536426 L11.5607574,8.57171602 C11.5607574,8.31569118 11.7683065,8.10814204 12.0243314,8.10814204 Z" id="icon-add" fill="#1987CB" fill-rule="nonzero"></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <p>Add Another Option</p>
+          </a>
+        </li>
+      </ul>
+
+      <div class="policy-section">
+        <div class="wrap">
+          <div class="head">
+            <img src="../../assets/icon/icon-policy-notice.png" alt="Policy Alert" >
+            <h4>Associated Policy Alert</h4>
+          </div>
+          <p>Add a custom warning or procedure note to display with this risk factor if it is selected during an assessment.</p>
+          <label>Policy or Procedure Alert</label>
+          <textarea id="policy" placeholder="Enter a warning or required procedure note for this risk factor." formControlName="policy"></textarea>
+          <label for="source">Source (optional)</label>
+          <input id="source" class="source" type="text" placeholder="Example: Ops Manual pg. 31"  formControlName="policySource">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

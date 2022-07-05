@@ -1,0 +1,31 @@
+<div class="step-content">
+
+  <ng-container *ngIf="assessmentRadioOptions?.length > 0; else emptyState">
+
+    <label class="step-label" for="which-assessment">Select the form for this assessment</label>
+
+    <app-radio-list
+
+      [options]="assessmentRadioOptions"
+      [currentSelection]="assessmentSelection?.value"
+      (onChange)="updateSelection($event)"
+    >
+    </app-radio-list>
+  </ng-container>
+
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <img src="assets/img/illustration_no-form-access.svg" alt="No Access">
+      <h1>Oh no!</h1>
+      <p class="bold">
+        It seems you don't have access to any risk forms!
+      </p>
+      <p>
+        You’ll need to request access to the appropriate forms from your account administrator ({{(accountOwner$|async)?.fullName }}).
+      </p>
+
+    </div>
+  </ng-template>
+
+</div>

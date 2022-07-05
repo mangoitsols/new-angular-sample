@@ -1,0 +1,60 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+// .section-heading.first-run {
+// 	margin-top: 20px;
+// }
+.empty-state {
+	@extend %wrapper;
+	max-width: 320px;
+	// @include flex();
+	// justify-content: center;
+	// flex-flow: column;
+	text-align: center;
+	height: 60vh;
+	margin: 0 auto;
+	.no-assessment {
+		width: 100%;
+		margin-top: 100px;
+	}
+	@include bp(browser) {
+		height: auto;
+		justify-content: flex-start;
+		.no-assessment {
+			margin-top: 150px;
+		}
+	}
+	h3 {
+		color: $blue-shade-6;
+		margin: 20px auto 10px;
+		@include ff($family, $medium);
+	}
+	h6 {
+		padding: 0 35px;
+		line-height: 20px;
+		margin: 0 auto;
+		color: $blue-shade-5;
+	}
+	img {
+		margin: 0 auto;
+	}
+}
+
+.new-frat-btn {
+	display: none;
+	@include bp(browser) {
+		display: inline-block;
+	}
+	cursor: pointer;
+	@include ff($family,$bold);
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 10px;
+	color: $white;
+	margin-top: 1rem;
+	background: $dark-blue-primary;
+	@include radius(3px);
+	&:hover {
+		background-color: darken($dark-blue-primary, 5%);
+	}
+}

@@ -1,0 +1,574 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.createFlight {
+  // background-image: linear-gradient(180deg, $light-blue-secondary 0%, $light-blue-primary 55%);
+  background-image: linear-gradient(180deg, $dark-blue-secondary 20%, $blue-shade-7 70%);
+  min-height: 100vh;
+
+  select:focus,
+  input:focus,
+  textarea:focus {
+    outline: none;
+    -moz-box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    -webkit-box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 1);
+  }
+
+}
+.navbar-fixed-top {
+  margin-bottom: 10px;
+  background-color: $blue-shade-0;
+}
+.flight-detail{
+  @include flex();
+  flex: 1 1;
+  flex-direction: column;
+  justify-content: space-between;
+  display: block;
+  padding-top: 3rem;
+  padding-bottom: 10rem;
+  @extend %wrapper;
+  ul.selection-list {
+    li.option {
+      @include radius(2px);
+      margin:  0 0 1rem 0;
+      // background: white;
+      background-color: rgb(255,255,255,10%);
+      @include bp(mini) {
+        padding: 10px!important;
+      }
+      padding: 1rem!important;
+      align-items: center;
+      letter-spacing: normal;
+      overflow: hidden;
+      h6 {
+        margin: 0 0 -1px 0;
+        @include ff($family, $medium);
+        color: white;
+        font-size: 14px;
+        line-height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+      }
+      &:hover {
+        background-color: $dark-blue-secondary;
+      }
+      &.selected {
+        background-color: rgb(255,255,255,100%);
+        h6 {
+          color: $blue-shade-6;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.step-wrapper {
+  width: 280px;
+  margin: 0 auto;
+  @include bp(phone){
+    width: 210px;
+  }
+}
+
+.flight-detail-steps {
+  @include flex();
+  flex: 1 1;
+  flex-direction: row;
+  align-self: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  margin: 0 auto;
+}
+
+.step-content .flight-date-picker {
+  @include flex();
+  width: 100%;
+  margin: 0 0 20px 0!important;
+}
+
+.flight-detail-step {
+  @include flex();
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+}
+
+.border-indicators {
+  width: 250px;
+  margin: -20px auto 60px;
+  border-top: solid 2px white;
+  @include bp(phone){
+    width: 180px;
+  }
+}
+
+// .step-content-horizontal {
+//   @include flex();
+//   flex-direction: row;
+//   justify-content: space-around;
+// }
+
+// .step-content-vertical {
+//   @include flex();
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+label {
+  padding-bottom: 3px;
+}
+
+// input {
+//   margin: 10px 0 0;
+// }
+
+// .step-content .issue-notice {
+//   background: white;
+// }
+
+@include bp(browser) {
+  .navbar-fixed-bottom.create-frat-nav {
+    position: relative;
+  }
+}
+
+.right-corner-control .cancel-button {
+  @include flex();
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  @include radius(50px);
+  background: $light-blue-primary;
+  height: 40px;
+  width: 40px;
+  @include bp(browser) {
+    background: none;
+    height: auto;
+    width: auto;
+  }
+}
+
+.dropdown-arrow {
+  width: 23.1px;
+  height: 12.1px;
+  object-fit: contain;
+  background-color: $blue-shade-5;
+}
+
+.flight-detail-heading {
+  @include ff($family-cond,$light);
+  font-size: 28px;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $white;
+  margin-top:0;
+}
+
+.step-content {
+  @include flex();
+  flex-direction: column;
+  //padding-top: 15px;
+  margin: 0 0 50px;
+  position: relative;
+  @include bp(tablet) {
+    margin: 0 auto 50px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .issue-notice {
+    color: white;
+    padding: 3px 5px;
+    @include radii(0, 0, 3px, 3px);
+    background: $severe-dark;
+  }
+}
+
+input,select {
+  &.ng-invalid.ng-touched {
+    background-color: $severe-light;
+    border: 1px solid $severe;
+  }
+}
+
+
+// .step-title {
+//   padding-top: 20px;
+//   @include ff($family-cond,$reg);
+//   font-size: 21px;
+//   //font-stretch: condensed;
+//   line-height: normal;
+//   letter-spacing: normal;
+//   text-align: center;
+//   color: $blue-shade-5;
+//   span {
+//     background-color: $blue-shade-0;
+//     padding: 0 15px;
+//   }
+// }
+
+// .border {
+//   @extend %border;
+//   margin: -13px 10px 0;
+//   border-top: 1px solid $blue-shade-2;
+//   border-bottom: 1px solid $white;
+//   @include bp(tablet) {
+//     margin: -13px 0 0;
+//   }
+//   + .step-content {margin-top: 30px;}
+// }
+
+.current-step-true {
+  @include flex();
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: $light-blue-secondary;
+  border: solid 2px white;
+  @include radius(50%);
+  line-height: 38px;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  @include ff($family-cond, $bold);
+}
+
+.current-step-false {
+  width: 14.3px;
+  height: 14.3px;
+  background-color: $light-blue-secondary;
+  border: solid 2px white;
+  @include radius(50%);
+  line-height: 14.3px;
+}
+
+.step-label {
+  color: $white;
+  // @include ff($family,$medium);
+  // font-size: 12px;
+  // //font-stretch: normal;
+  // line-height: normal;
+  // letter-spacing: normal;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // z-index: 1;
+}
+
+.step-details {
+  background-color: white;
+  border: 1px solid $blue-shade-2;
+  @include ff($family, $reg);
+  font-size: 14px;
+  color: $blue-shade-5;
+  // text-indent: 10px;
+  //text-transform: capitalize;
+  @include radius(2px);
+  &::placeholder,
+  &::placeholder-shown {color: $blue-shade-4;text-transform: capitalize;}
+}
+
+.step-read-only {
+  margin: 0;
+  @include flex();
+  flex-direction: column;
+  align-content: center;
+  @include bp(tablet) {
+    //margin: 16px auto 10px;
+    width: 100%;
+    max-width: 480px;
+  }
+  p {
+    background-color: $dark-blue-secondary;
+    height: 50px;
+    border: none;
+    @include radius(2px);
+    margin: 0 0 10px;
+    padding-top: 16px;
+    text-indent: 10px;
+    @include ff($family);
+    font-size: 14px;
+    color: white;
+    font-style: italic;
+    &:placeholder-shown {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.step-details-horizontal {
+  width: 150px;
+  height: 50px;
+}
+
+.step-details-vertical {
+  //width: 320px;
+  height: 50px;
+}
+
+.step-content select + label {
+  margin-top: 10px;
+}
+
+.flight-detail-responsible-label {
+  @include flex();
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+  input {
+    margin: 0 5px 0 0;
+  }
+  label {
+    @include ff($family,$reg);
+    font-size: 12px;
+    //font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $white;
+    text-transform: inherit;
+    margin: 4px 0 0 3px;
+  }
+}
+
+.right-corner-control.create-flight {
+  .desktop {display: none;}
+  @include bp(browser) {
+    .mobile {display: none;}
+    .desktop {display: block;}
+    position: absolute;
+    //bottom: 0;
+    z-index: 100;
+    display: block;
+    //width: 100%;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    //padding-bottom: 100px;
+  }
+  .cancel-flight-btn {
+    @include bp(belowdesktop){
+      display: none;
+    }
+    cursor: pointer;
+    @include flex();
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    @include ff($family,$reg);
+    font-size: 14px;
+    //width: 120px;
+    height: 30px;
+    color: $white;
+    img {margin: 0 8px 0 0;}
+    span {
+      font-size: 12px;
+      // font-weight: $medium;
+    }
+  }
+  a > img {
+    height: 22px;
+    width: 22px;
+    margin: 0 auto;
+  }
+}
+
+:host ::ng-deep ngb-timepicker {
+  font-size: 1rem;
+
+  fieldset {
+    border: none;
+    padding: 0;
+  }
+}
+
+:host ::ng-deep .ngb-tp {
+  @include flex();
+  align-items: center;
+  justify-content: center;
+
+  &-input-container {
+    flex-grow: 1;
+  }
+
+
+  &-chevron {
+    &::before {
+      border-style: solid;
+      border-width: 0.29em 0.29em 0 0;
+      content: '';
+      display: inline-block;
+      height: 0.69em;
+      left: 0.05em;
+      position: relative;
+      top: 0.15em;
+      transform: rotate(-45deg);
+      vertical-align: middle;
+      width: 0.69em;
+    }
+
+    &.bottom:before {
+      top: -.3em;
+      transform: rotate(135deg);
+    }
+  }
+
+  &-input {
+    text-align: left;
+  }
+
+  &-hour,
+  &-minute,
+  &-second,
+  &-meridian {
+    @include flex();
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &-spacer {
+    width: 1em;
+    text-align: center;
+    color: $white;
+  }
+}
+
+//#date-label {
+//  &::after {
+//    content: "Trip Date";
+//    @media only screen and (min-width: 300px){
+//      content: "Trip Date / Time (UTC)";
+//    }
+//  }
+//}
+//#time-label {
+//  display: block;
+//  @media only screen and (min-width: 300px){
+//    display: none;
+//  }
+//}
+
+.time-form {
+  @include flex();
+  flex-direction: row;
+  @media all and (max-width: 299px) {
+    margin-top: 10px;
+  }
+  input {
+    min-width: 48px;
+  }
+  #hours {
+    margin-right: 8px;
+  }
+  #minutes {
+    margin-left: 8px;
+  }
+}
+
+
+.navigation-buttons {
+  text-align: center;
+  padding: 0;
+  margin-top: 2rem;
+  .wizard-step-next-full {
+    @extend %btn-primary;
+    margin: 0 0 100px;
+    // flex: 1;
+    // order: 2;
+    width: 100%;
+    //max-width: 480px;
+    // @include bp(tablet) {
+    //   margin: 0 auto 100px;
+    // }
+    &[disabled] {
+      @extend %btn-disabled;
+    }
+  }
+
+  .wizard-step-next-half, .wizard-step-finish {
+    @extend %btn-primary;
+    flex: 1;
+    order: 2;
+    // margin: 0 0 140px;
+    width: 100%;
+    // @include bp(tablet) {
+    //   margin: 0 0 50px 10px;
+    // }
+  }
+  button:disabled,
+  button[disabled],
+  .navigation-buttons button [disabled],
+  button:disabled:hover,
+  button[disabled]:hover,
+  .navigation-buttons button [disabled]:hover {
+    @extend %btn-disabled;
+    color: lighten($blue-shade-6, 5%);
+    background-color: darken($blue-shade-7, 5%);
+    //background-color: $dark-blue-secondary;
+    //font-style: italic;
+  }
+
+  .wizard-step-previous {
+    @extend %btn;
+    order: 1;
+    background-color: lighten($blue-shade-7, 5%);
+    //border: 2px solid $dark-blue-secondary;
+    color: $white;
+    &:hover {
+      // background-color: $dark-blue-secondary;
+      background-color: lighten($blue-shade-7, 8%);
+    }
+    flex: 1;
+    //border: 2px solid $light-blue-secondary;
+    // margin: 0 0 140px;
+    width: 100%;
+    // @include bp(tablet) {
+    //   margin: 0 10px 100px 0;
+    // }
+  }
+
+  a.link {
+    margin-top: 40px;
+    color: white;
+  }
+}
+
+.frat-calculation .empty-state {
+  text-align: center;
+  color: $white;
+  h1 {
+    color: $white;
+  }
+  p.bold {
+    font-weight: bold;
+  }
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 25px 0 5px 0;
+
+  label {
+    display: inline;
+    margin: 0;
+  }
+  a {
+    margin: 0;
+    &.link {
+      margin: 0;
+    }
+  }
+}
+

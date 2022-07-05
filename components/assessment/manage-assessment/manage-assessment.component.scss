@@ -1,0 +1,298 @@
+@import "../../../../assets/css/partials/variables";
+@import "../../../../assets/css/partials/mixins";
+
+.risk-form-header {
+  border-bottom: none;
+  // margin-top: 1rem;
+  min-height: 55px;
+}
+.form-name-wrapper {
+  @include flex();
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  h2 {
+    margin-right: 10px;
+  }
+  svg {
+    cursor: pointer;
+    fill: $blue-shade-5;
+    &:hover {
+      fill: $blue-shade-7;
+    }
+  }
+  .form-name,
+  .edit-form-name {
+    @include flex();
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .edit-form-name {
+    input {
+      height: 30px;
+      margin-right: .5rem;
+      width: 100%;
+      max-width: 300px;
+    }
+    button {
+      @extend %btn-secondary-sm;
+
+      &:disabled {
+        @extend %btn-disabled-sm;
+      }
+    }
+  }
+}
+
+.main-form {
+  .content-wrap {
+    padding: 0;
+    margin-bottom: 1rem;
+    @include bp(browser) {
+      margin-bottom: 2rem;
+    }
+    @include flex();
+    flex-direction: column;
+    .content {
+      @include flex();
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 1rem;
+      @include bp(browser) {
+        padding: 1.25rem;
+      }
+      @include bp(large-browser) {
+        align-items: center;
+      }
+      img {
+        max-width: 90px;
+        min-width: 40px;
+        height: auto;
+        flex: 1;
+        margin: 0;
+        cursor: pointer;
+      }
+      .description {
+        margin-left: 1rem;
+        margin-bottom: .5rem;
+        flex: 3;
+        @include flex();
+        flex-direction: column;
+        justify-content: flex-start;
+        @include bp (med-browser){
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-bottom: 0;
+        }
+        .text {
+          h3 {
+            font-size: 20px;
+            line-height: 24px;
+            color: $blue-shade-7;
+            margin: 0 0 5px;
+            font-weight: $medium;
+          }
+          p {
+            font-size: 16px;
+            line-height: 24px;
+            color: $blue-shade-7;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-align: left;
+            max-width: 680px;
+            margin: 0;
+          }
+        }
+        a {
+          @extend %btn-primary-sm;
+          max-width: 250px;
+          min-width: 170px;
+          margin-top: 1rem;
+          @include bp (med-browser){
+            height: 40px;
+            margin: 0 0 0 2rem;
+          }
+        }
+      }
+    }
+    .default-check {
+      background: $gray-shade-1;
+      border-top: 1px solid $gray-shade-2;
+      border-right: 1px solid white;
+      border-bottom: 1px solid white;
+      border-left: 1px solid white;
+      padding: .75rem 1rem;
+      @include radii(0,0,4px,4px);
+      @include flex();
+      flex-direction: column;
+      justify-content: flex-start;
+      @include bp(tablet) {
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .link.delete {
+        @include flex();
+        flex-direction: row;
+        align-items: center;
+        color: $blue-shade-6;
+        margin: 1rem 0 0;
+        @include bp(tablet) {
+          margin: 0;
+        }
+        svg {
+          margin-right: 5px;
+          #trash {fill: $blue-shade-6;}
+        }
+      }
+    }
+  }
+}
+
+.grid-equalHeight.form-settings {
+  margin-bottom: 4rem;
+  @include bp(browser) {
+    margin-bottom: 3rem;
+  }
+}
+.equal-heights-wrapper {
+  @include flex();
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-direction: column;
+  @include bp(med-browser){
+    flex-direction: row;
+  }
+  .content-wrap {
+    padding: 0;
+    margin-bottom: 1rem;
+    @include bp(browser) {
+      margin-bottom: 2rem;
+    }
+    @include flex();
+    flex-direction: column;
+  }
+}
+.card {
+  @include flex();
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
+  //padding: 1.5rem 0;
+  //border-bottom: 1px solid $blue-shade-2;
+  .content {
+    @include flex();
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1rem;
+    @include bp(browser) {
+      padding: 1.25rem;
+    }
+    img {
+      filter: grayscale(100%);
+      opacity: .7;
+      max-width: 90px;
+      min-width: 40px;
+      height: auto;
+      flex: 1;
+      cursor: not-allowed;
+    }
+    h4 {
+      font-size: 16px;
+      line-height: 24px;
+      color: $blue-shade-5;
+      margin: 0;
+      font-weight: $medium;
+      font-style: italic;
+    }
+    p {
+      font-size: 14px;
+      line-height: 20px;
+      text-align: left;
+      margin-bottom: 5px;
+      color: $blue-shade-5;
+      font-style: italic;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    a.textlink {
+      @include flex();
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      text-decoration: none;
+      text-align: left;
+      cursor: not-allowed;
+      @include ff($family, $medium);
+      color: $blue-shade-5;
+      font-size: 14px;
+      line-height: 24px;
+      font-style: italic;
+      margin: 0!important;
+      svg {
+        fill: $blue-shade-5;
+      }
+    }
+  }
+  img {margin: 0;}
+  .descriptor {
+    flex: 3;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1rem;
+  }
+  .enabler {
+    width: 100%;
+    background: $gray-shade-1;
+    border-top: 1px solid $gray-shade-2;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    padding: .75rem 1rem;
+    @include radii(0,0,4px,4px);
+    min-height: 50px;
+    @include flex();
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &.enabled {
+    .content {
+      h4 {
+        color: $blue-shade-7;
+        font-style: normal;
+      }
+      p {
+        color: $blue-shade-6;
+        font-style: normal;
+      }
+      a.textlink {
+        color: $light-blue-primary;
+        cursor: pointer;
+        font-style: normal;
+        svg {
+          fill: $light-blue-primary;
+        }
+        &:hover {
+          color: $light-blue-secondary;
+        }
+      }
+      img {
+        filter: grayscale(0%);
+        opacity: 1;
+        cursor: pointer;
+      }
+    }
+    // .enabler {
+    //   background-color: rgb(25,135,203,11%);
+    // }
+  }
+}
